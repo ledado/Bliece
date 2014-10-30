@@ -1,0 +1,40 @@
+Main\ApiBundle\Entity\Participant:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\ParticipantRepository
+    table: participant
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields: ~
+    manyToOne:
+        event:
+            targetEntity: Event
+            cascade: [persist]
+            inversedBy: participans
+            joinColumn:
+                name: event_id
+                referencedColumnName: id
+            orphanRemoval: true
+        user:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: participans
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            orphanRemoval: true
+        userUnder:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: participans
+            joinColumn:
+                name: user_under_id
+                referencedColumnName: id
+            orphanRemoval: true
+    lifecycleCallbacks: {  }

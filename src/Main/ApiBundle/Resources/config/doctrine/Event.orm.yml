@@ -1,0 +1,56 @@
+Main\ApiBundle\Entity\Event:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\EventRepository
+    table: event
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 150
+            fixed: false
+            comment: ''
+            default: ''
+        description:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+        date:
+            type: datetime
+            nullable: false
+            comment: ''
+        eventDate:
+            type: datetime
+            nullable: false
+            comment: ''
+    manyToOne:
+        user:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: events
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            orphanRemoval: true
+    oneToMany:
+        participans:
+            targetEntity: Participant
+            mappedBy: event
+            cascade: [persist]
+            orphanRemoval: true
+        works:
+            targetEntity: Work
+            mappedBy: event
+            cascade: [persist]
+            orphanRemoval: true
+    lifecycleCallbacks: {  }

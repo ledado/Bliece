@@ -1,0 +1,46 @@
+Main\ApiBundle\Entity\Work:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\WorkRepository
+    table: work
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields: ~
+    manyToOne:
+        event:
+            targetEntity: Event
+            cascade: [persist]
+            inversedBy: works
+            joinColumn:
+                name: event_id
+                referencedColumnName: id
+            orphanRemoval: true
+        user:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: works
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            orphanRemoval: true
+        userTo:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: works
+            joinColumn:
+                name: user_to_id
+                referencedColumnName: id
+            orphanRemoval: true
+    oneToMany:
+        tasks:
+            targetEntity: Task
+            mappedBy: work
+            cascade: [persist]
+            orphanRemoval: true
+    lifecycleCallbacks: {  }

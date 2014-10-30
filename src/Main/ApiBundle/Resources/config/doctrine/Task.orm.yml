@@ -1,0 +1,46 @@
+Main\ApiBundle\Entity\Task:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\TaskRepository
+    table: task
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 150
+            fixed: false
+            comment: ''
+            default: ''
+        description:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+        donePercentage:
+            type: integer
+            nullable: false
+            fixed: false
+            comment: ''
+        date:
+            type: datetime
+            nullable: false
+            comment: ''
+    manyToOne:
+        work:
+            targetEntity: Work
+            cascade: [persist]
+            inversedBy: tasks
+            joinColumn:
+                name: work_id
+                referencedColumnName: id
+            orphanRemoval: true
+    lifecycleCallbacks: {  }
