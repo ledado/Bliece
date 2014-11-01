@@ -2,3 +2,10 @@ main_api:
     resource: "@MainApiBundle/Resources/config/routing.yml"
     prefix:   /
 
+login:
+    path:     /login
+    defaults: { _controller: MainApiBundle:Security:login }
+login_check:
+    path:  /login_check
+logout:
+    path:  /logout

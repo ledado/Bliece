@@ -15,10 +15,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class EventController extends Controller {
     public function createEventAction(Request $request){
-        $session = new Session();
-        $em = $this->get('doctrine')->getManager();
 
-        $userId = $em->getRepository('MainApiBundle:User')->findOneById($session->get('userId'));
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $em = $this->get('doctrine')->getManager();
+        $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
 
         $form = $this->createFormBuilder()
             ->add('eventName', 'text')
@@ -60,5 +61,24 @@ class EventController extends Controller {
 
 
 
+    }
+    public function getEventAction($event){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $em = $this->get('doctrine')->getManager();
+        $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
+        $event = $em->getRepository('MainApiBundle:Event')->findOneByName($event);
+
+
+        $error = '';
+        if(!$event){
+            $error = 'Event not found';
+        }
+
+        return $this->render('MainApiBundle:Event:view.html.twig', array(
+            'event' => $event,
+            'error' => $error,
+        ));
     }
 } 

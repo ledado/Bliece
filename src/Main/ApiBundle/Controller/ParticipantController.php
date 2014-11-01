@@ -16,10 +16,10 @@ use Doctrine\ORM\EntityRepository;
 
 class ParticipantController extends Controller {
     public function addParticipantAction(Request $request, $event_id){
-        $session = new Session();
+        $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
 
-        $userId = $em->getRepository('MainApiBundle:User')->findOneById($session->get('userId'));
+        $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
         $eventId = $em->getRepository('MainApiBundle:Event')->findOneById($event_id);
 
         $form = $this->createFormBuilder()
@@ -27,7 +27,7 @@ class ParticipantController extends Controller {
                 'class' => 'MainApiBundle:User',
                 'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('u')
-                            ->orderBy('u.firstName', 'ASC');
+                            ->orderBy('u.username', 'ASC');
                     },
             ))
 
