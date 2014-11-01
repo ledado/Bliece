@@ -1,26 +1,31 @@
 main_api_homepage:
     path:     /
+    defaults: { _controller: MainApiBundle:Security:login }
+
+main_api_dashboard:
+    path:     /dashboard
     defaults: { _controller: MainApiBundle:Main:index }
+
 main_api_registration:
     path:     /registration
-    defaults: { _controller: MainApiBundle:Registration:index }
-main_api_login:
-    path:     /login
-    defaults: { _controller: MainApiBundle:Login:index }
-main_api_logout:
-    path:     /logout
-    defaults: { _controller: MainApiBundle:Login:logout }
+    defaults: { _controller: MainApiBundle:Registration:registration }
+
 main_api_create_event:
     path:     /create-event
     defaults: { _controller: MainApiBundle:Event:createEvent }
+
 main_api_add_participant:
     path:     /add-participant/{event_id}
     defaults: { _controller: MainApiBundle:Participant:addParticipant }
+
 main_api_get_work:
     path:     /get-work/{event_id}/{participant_id}
     defaults: { _controller: MainApiBundle:Work:getWork }
+
 main_api_create_task:
     path:     /create-task/{work_id}
     defaults: { _controller: MainApiBundle:Work:createTask }
 
-
+main_api_event:
+    path:     /{event}
+    defaults: { _controller: MainApiBundle:Event:getEvent }

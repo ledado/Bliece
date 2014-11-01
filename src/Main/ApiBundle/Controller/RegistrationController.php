@@ -12,76 +12,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Main\ApiBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Main\ApiBundle\Form\RegistrationForm;
 
 class RegistrationController extends Controller {
-    public function indexAction(Request $request){
-
-        $form = $this->createFormBuilder()
-            ->add('firsName', 'text')
-            ->add('lastName', 'text')
-            ->add('email', 'email')
-            ->add('password', 'password')
-            ->add('save', 'submit', array('label' => 'Create account'))
-            ->getForm();
-
-
-
-
+    public function registrationAction(Request $request){
 
         $em = $this->get('doctrine')->getManager();
-        $users = $em->getRepository('MainApiBundle:User')->findAll();
-
-        $usedEmail = array();
-
-        foreach($users as $user){
-            $usedEmail[] = $user->getEmail(); //Emaily ktore sa uz vyskytuju v DB
-        }
-        $error = '';
-
+        $form = $this->createForm(new RegistrationForm(), new User());
         $form->handleRequest($request);
 
+
+        $error = '';
         if ($form->isValid()) {
-            $data = $form->getData();
+            $registration = $form->getData();
 
-            $useEmail = false;
-            for($i = 0; $i < count($usedEmail); $i++){
-                if($data['email'] == $usedEmail[$i]){
-                    $useEmail = true;
-                    $error = 'Užívateľ s týmto emailom už existuje';
-                }
-            }
+            //Handle encoding here...
+            $encoderFactory = $this->get('security.encoder_factory');
+            $encoder = $encoderFactory->getEncoder($registration);
+            $password = $encoder->encodePassword($registration->getPassword(), $registration->getSalt());
+            $registration->setPassword($password);
 
 
-
-            if($useEmail == true){ //Ked email alebo meno uz existuje uzivatel sa nezaregistruje
-                return $this->render('WeciApiBundle:FrontEnd:registration.html.twig', array(
-                    'form' => $form->createView(),
-                    'error' => $error,
-                ));
-            }
-
-            //Vytvorenie noveho uzivatela
-            $user = new User();
-            $user->setFirstName($data['firsName']);
-            $user->setLastName($data['lastName']);
-            $user->setEmail($data['email']);
-            $user->setPassword(sha1($data['password']));
-            $user->setDate(new \DateTime("now"));
-
-            $em->persist($user);
+            $em->persist($registration);
             $em->flush();
 
-            //Nastavenie sessionov
-            $session = new Session();
-            $session->set('authenticate', true);
-            $session->set('userName', $data['firsName']);
 
             return $this->redirect($this->generateUrl('main_api_homepage'));
-
         }
+
         return $this->render('MainApiBundle:Registration:index.html.twig', array(
             'form' => $form->createView(),
             'error' => $error,
         ));
+
     }
+
 }

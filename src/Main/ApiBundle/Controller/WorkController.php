@@ -16,7 +16,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class WorkController extends Controller {
+
     public function getWorkAction($event_id, $participant_id){
+
         $session = new Session();
         $em = $this->get('doctrine')->getManager();
 
