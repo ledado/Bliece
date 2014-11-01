@@ -3,11 +3,13 @@
 namespace Main\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * User
  */
-class User
+class User implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer
@@ -17,7 +19,7 @@ class User
     /**
      * @var string
      */
-    private $firstName;
+    private $username;
 
     /**
      * @var string
@@ -40,6 +42,11 @@ class User
     private $date;
 
     /**
+     * @var boolean
+     */
+    private $isActive;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $events;
@@ -50,12 +57,21 @@ class User
     private $participans;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $works;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
         $this->participans = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->works = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->date = new \DateTime('now');
+        $this->isActive = true;
+
     }
 
     /**
@@ -69,26 +85,26 @@ class User
     }
 
     /**
-     * Set firstName
+     * Set username
      *
-     * @param string $firstName
+     * @param string $username
      * @return User
      */
-    public function setFirstName($firstName)
+    public function setUsername($username)
     {
-        $this->firstName = $firstName;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get firstName
+     * Get username
      *
      * @return string 
      */
-    public function getFirstName()
+    public function getUsername()
     {
-        return $this->firstName;
+        return $this->username;
     }
 
     /**
@@ -184,6 +200,29 @@ class User
     }
 
     /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
      * Add events
      *
      * @param \Main\ApiBundle\Entity\Event $events
@@ -248,11 +287,6 @@ class User
     {
         return $this->participans;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $works;
-
 
     /**
      * Add works
@@ -287,6 +321,72 @@ class User
         return $this->works;
     }
     public function __toString(){
-        return $this->firstName.' '.$this->lastName;
+        return $this->username.' '.$this->lastName;
     }
+
+
+
+
+    /**
+     * Security
+     */
+    public function getSalt()
+    {
+    // you *may* need a real salt depending on your encoder
+    // see section on salt below
+        return null;
+    }
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+
+    }
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+
+
+
 }
