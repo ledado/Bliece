@@ -1,7 +1,13 @@
 {% extends 'MainApiBundle::layout.html.twig' %}
 
 {% block content %}
+    {% if error == '' %}
     {{ event.name }}<br/>
     {{ event.description }}<br/>
-
+    {% for participant in event.participans %}
+        {{ participant }}
+    {% endfor %}
+    {% else %}
+        {{ error }}
+    {% endif %}
 {% endblock %}

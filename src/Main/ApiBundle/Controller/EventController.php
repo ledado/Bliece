@@ -62,14 +62,17 @@ class EventController extends Controller {
 
 
     }
-    public function getEventAction($event){
+    public function getEventAction($eventName){
 
         $user = $this->get('security.context')->getToken()->getUser();
 
         $em = $this->get('doctrine')->getManager();
         $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
-        $event = $em->getRepository('MainApiBundle:Event')->findOneByName($event);
+        $event = $em->getRepository('MainApiBundle:Event')->findOneByName($eventName);
 
+        if($event->getUser()->getId() != $user->getId()){
+            throw new \Exception('You do not have access ');
+        }
 
         $error = '';
         if(!$event){
