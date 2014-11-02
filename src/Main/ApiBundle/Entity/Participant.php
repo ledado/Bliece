@@ -108,4 +108,8 @@ class Participant
     {
         return $this->userUnder;
     }
+    public function __toString()
+    {
+        return $this->userUnder.'';
+    }
 }

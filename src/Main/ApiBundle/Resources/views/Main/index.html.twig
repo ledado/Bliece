@@ -10,7 +10,7 @@
 <b>My events</b><br/>
 {% for event in events %}
     <br /><br /><br />
-    <a href="{{ path('main_api_event', {'event': event.name}) }}">
+    <a href="{{ path('main_api_event', {'eventName': event.name}) }}">
         {{ event.name }}
     </a>
     <br />
