@@ -37,4 +37,10 @@ Main\ApiBundle\Entity\Participant:
                 name: user_under_id
                 referencedColumnName: id
             orphanRemoval: true
+    oneToMany:
+        tasks:
+            targetEntity: Task
+            mappedBy: participant
+            cascade: [persist]
+            orphanRemoval: true
     lifecycleCallbacks: {  }

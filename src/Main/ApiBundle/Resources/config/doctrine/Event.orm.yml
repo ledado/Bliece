@@ -48,9 +48,4 @@ Main\ApiBundle\Entity\Event:
             mappedBy: event
             cascade: [persist]
             orphanRemoval: true
-        works:
-            targetEntity: Work
-            mappedBy: event
-            cascade: [persist]
-            orphanRemoval: true
     lifecycleCallbacks: {  }

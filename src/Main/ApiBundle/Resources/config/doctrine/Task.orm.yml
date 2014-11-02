@@ -35,12 +35,20 @@ Main\ApiBundle\Entity\Task:
             nullable: false
             comment: ''
     manyToOne:
-        work:
-            targetEntity: Work
+        participant:
+            targetEntity: Participant
             cascade: [persist]
             inversedBy: tasks
             joinColumn:
-                name: work_id
+                name: participant_id
+                referencedColumnName: id
+            orphanRemoval: true
+        chef:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: tasks
+            joinColumn:
+                name: chef_id
                 referencedColumnName: id
             orphanRemoval: true
     lifecycleCallbacks: {  }

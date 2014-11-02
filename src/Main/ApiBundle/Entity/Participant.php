@@ -15,6 +15,11 @@ class Participant
     private $id;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $tasks;
+
+    /**
      * @var \Main\ApiBundle\Entity\Event
      */
     private $event;
@@ -29,6 +34,13 @@ class Participant
      */
     private $userUnder;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -38,6 +50,39 @@ class Participant
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Add tasks
+     *
+     * @param \Main\ApiBundle\Entity\Task $tasks
+     * @return Participant
+     */
+    public function addTask(\Main\ApiBundle\Entity\Task $tasks)
+    {
+        $this->tasks[] = $tasks;
+
+        return $this;
+    }
+
+    /**
+     * Remove tasks
+     *
+     * @param \Main\ApiBundle\Entity\Task $tasks
+     */
+    public function removeTask(\Main\ApiBundle\Entity\Task $tasks)
+    {
+        $this->tasks->removeElement($tasks);
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
     }
 
     /**
@@ -107,9 +152,5 @@ class Participant
     public function getUserUnder()
     {
         return $this->userUnder;
-    }
-    public function __toString()
-    {
-        return $this->userUnder.'';
     }
 }
