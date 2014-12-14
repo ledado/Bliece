@@ -31,7 +31,7 @@ class ParticipantController extends Controller {
                     },
             ))
 
-            ->add('save', 'submit', array('label' => 'Add'))
+            ->add('send', 'submit', array('label' => 'Send request'))
             ->getForm();
 
         $form->handleRequest($request);

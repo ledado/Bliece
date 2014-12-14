@@ -1,0 +1,54 @@
+Main\ApiBundle\Entity\Notification:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\NotificationRepository
+    table: notification
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 150
+            fixed: false
+            comment: ''
+            default: ''
+        type:
+            type: integer
+            nullable: false
+            fixed: false
+            comment: ''
+        date:
+            type: datetime
+            nullable: false
+            comment: ''
+        isNew:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+    manyToOne:
+        to_user:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: notifications
+            joinColumn:
+                name: to_user_id
+                referencedColumnName: id
+            orphanRemoval: true
+        from_user:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: notifications
+            joinColumn:
+                name: from_user_id
+                referencedColumnName: id
+            orphanRemoval: true
+
+    lifecycleCallbacks: {  }

@@ -65,6 +65,16 @@ Main\ApiBundle\Entity\User:
             mappedBy: userUnder
             cascade: [persist]
             orphanRemoval: true
+        notifications:
+            targetEntity: Notification
+            mappedBy: to_user
+            cascade: [persist]
+            orphanRemoval: true
+        notifications:
+            targetEntity: Notification
+            mappedBy: from_user
+            cascade: [persist]
+            orphanRemoval: true
     manyToMany:
         tasks:
             targetEntity: Task
