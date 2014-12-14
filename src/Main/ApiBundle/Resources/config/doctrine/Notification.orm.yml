@@ -50,5 +50,13 @@ Main\ApiBundle\Entity\Notification:
                 name: from_user_id
                 referencedColumnName: id
             orphanRemoval: true
+        event:
+            targetEntity: Event
+            cascade: [persist]
+            inversedBy: notifications
+            joinColumn:
+                name: event_id
+                referencedColumnName: id
+            orphanRemoval: true
 
     lifecycleCallbacks: {  }

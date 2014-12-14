@@ -8,6 +8,7 @@
 
 namespace Main\ApiBundle\Controller;
 
+use Main\ApiBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Main\ApiBundle\Entity\Participant;
@@ -43,16 +44,25 @@ class ParticipantController extends Controller {
 
 
         if ($form->isValid()) {
-
             $data = $form->getData();
 
-            $participant = new Participant();
+            $notification = new Notification();
+            $notification->setTitle('Notification title');
+            $notification->setType(1);
+            $notification->setToUser($data['usersUnder']);
+            $notification->setFromUser($userId);
+            $notification->setDate(new \DateTime('now'));
+            $notification->setIsNew(true);
 
+
+            $participant = new Participant();
             $participant->setEvent($eventId);
             $participant->setUser($userId);
             $participant->setUserUnder($data['usersUnder']);
+            $participant->setIsActive(false);
 
             $em->persist($participant);
+            $em->persist($notification);
             $em->flush();
             $error = 'Participant was added';
         }

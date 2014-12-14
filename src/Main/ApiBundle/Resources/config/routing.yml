@@ -27,3 +27,7 @@ main_api_event:
     path:     /event/{eventName}
     defaults: { _controller: MainApiBundle:Event:getEvent }
 
+main_api_notification_ajaxCall:
+    path:     /ajaxcall
+    defaults: { _controller: MainApiBundle:Notification:ajaxCall }
+

@@ -1,5 +1,43 @@
 {% extends 'MainApiBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
 
+    <script>
+        var ajaxLink = '{{ path('main_api_notification_ajaxCall') }}';
+
+
+        function ajaxCall(notificationId, response){
+
+            $.ajax({
+                url: ajaxLink,
+                data: {
+                    notificationId: notificationId,
+                    response: response
+
+                },
+                dataType: 'json',
+
+                success: function(response){
+
+                    if(response.code == 100){
+                        alert('1');
+
+                    }
+
+                },
+                beforeSend: function(){
+
+                },
+                complete: function(){
+
+                }
+
+            });
+        }
+    </script>
+
+
+{% endblock %}
 
 {% block content %}
 <a href="{{ path('main_api_create_event') }}">Create event</a><br />
@@ -31,4 +69,20 @@
 {% endfor %}
 
 <br/><br/>
+<b>Notification</b><br/>
+    {% for notification in notifications %}
+        <div class="notification" id="notification{{ notification.id }}">
+            {{ notification.fromUser }}
+            {{ notification.title }}<br/>
+            <button class="agree"
+                    onclick="ajaxCall({{ notification.id }}, true)">Agree
+            </button>
+            <button class="disagree"
+                    onclick="ajaxCall({{ notification.id }}, false)">Disgree
+            </button>
+
+        </div>
+
+    {% endfor %}
+
 {% endblock %}
