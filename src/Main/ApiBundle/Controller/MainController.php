@@ -24,6 +24,7 @@ class MainController extends Controller {
         $eventsArray = array();
         foreach($events as $event){
             $eventsArray[] = $event;
+
         }
 
 
