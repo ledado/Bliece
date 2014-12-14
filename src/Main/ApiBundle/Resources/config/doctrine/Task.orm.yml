@@ -34,21 +34,9 @@ Main\ApiBundle\Entity\Task:
             type: datetime
             nullable: false
             comment: ''
-    manyToOne:
-        participant:
-            targetEntity: Participant
-            cascade: [persist]
-            inversedBy: tasks
-            joinColumn:
-                name: participant_id
-                referencedColumnName: id
-            orphanRemoval: true
-        chef:
-            targetEntity: User
-            cascade: [persist]
-            inversedBy: tasks
-            joinColumn:
-                name: chef_id
-                referencedColumnName: id
-            orphanRemoval: true
+    manyToMany:
+        users:
+            targetEntity: user
+            mappedBy: tasks
+
     lifecycleCallbacks: {  }

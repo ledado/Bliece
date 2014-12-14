@@ -209,42 +209,8 @@ class Event
     {
         return $this->user;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $works;
 
 
-    /**
-     * Add works
-     *
-     * @param \Main\ApiBundle\Entity\Work $works
-     * @return Event
-     */
-    public function addWork(\Main\ApiBundle\Entity\Work $works)
-    {
-        $this->works[] = $works;
 
-        return $this;
-    }
 
-    /**
-     * Remove works
-     *
-     * @param \Main\ApiBundle\Entity\Work $works
-     */
-    public function removeWork(\Main\ApiBundle\Entity\Work $works)
-    {
-        $this->works->removeElement($works);
-    }
-
-    /**
-     * Get works
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getWorks()
-    {
-        return $this->works;
-    }
 }

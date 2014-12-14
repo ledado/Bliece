@@ -15,15 +15,18 @@
     </a>
     <br />
     {{ event.description }}<br />
+
+    <a href="{{ path('main_api_create_task', {'event_id': event.id}) }}">Create task</a><br />
+
+
+
     {{ event.eventDate|date('Y-m-d') }}<br />
     <a href="{{ path('main_api_add_participant', {'event_id': event.id}) }}">Add participant</a><br />
     {% for participant in event.participans %}
 
         {{ participant.userUnder }}
-        {% for task in participant.tasks %}
-            {{ task.title }}
-        {% endfor %}
-        <a href="{{ path('main_api_create_task', {'participant_id': participant.id}) }}">Create task</a><br />
+
+
     {% endfor %}
 {% endfor %}
 

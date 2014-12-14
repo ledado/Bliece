@@ -19,8 +19,9 @@ main_api_add_participant:
     defaults: { _controller: MainApiBundle:Participant:addParticipant }
 
 main_api_create_task:
-    path:     /create-task/{participant_id}
+    path:     /create-task/{event_id}
     defaults: { _controller: MainApiBundle:Task:createTask }
+
 
 main_api_event:
     path:     /event/{eventName}

@@ -35,15 +35,17 @@ class Task
     private $date;
 
     /**
-     * @var \Main\ApiBundle\Entity\Participant
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $participant;
+    private $users;
 
     /**
-     * @var \Main\ApiBundle\Entity\User
+     * Constructor
      */
-    private $chef;
-
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -148,48 +150,36 @@ class Task
     }
 
     /**
-     * Set participant
+     * Add users
      *
-     * @param \Main\ApiBundle\Entity\Participant $participant
+     * @param \Main\ApiBundle\Entity\user $users
      * @return Task
      */
-    public function setParticipant(\Main\ApiBundle\Entity\Participant $participant = null)
+    public function addUser(\Main\ApiBundle\Entity\user $users)
     {
-        $this->participant = $participant;
+        $users->addTask($this);
+        $this->users[] = $users;
 
         return $this;
     }
 
     /**
-     * Get participant
+     * Remove users
      *
-     * @return \Main\ApiBundle\Entity\Participant 
+     * @param \Main\ApiBundle\Entity\user $users
      */
-    public function getParticipant()
+    public function removeUser(\Main\ApiBundle\Entity\user $users)
     {
-        return $this->participant;
+        $this->users->removeElement($users);
     }
 
     /**
-     * Set chef
+     * Get users
      *
-     * @param \Main\ApiBundle\Entity\User $chef
-     * @return Task
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function setChef(\Main\ApiBundle\Entity\User $chef = null)
+    public function getUsers()
     {
-        $this->chef = $chef;
-
-        return $this;
-    }
-
-    /**
-     * Get chef
-     *
-     * @return \Main\ApiBundle\Entity\User 
-     */
-    public function getChef()
-    {
-        return $this->chef;
+        return $this->users;
     }
 }
