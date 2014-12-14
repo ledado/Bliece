@@ -77,7 +77,7 @@ class TaskController extends Controller {
 
 
 
-        return $this->render('MainApiBundle:Event:create_event.html.twig', array(
+        return $this->render('MainApiBundle:Work:create_task.html.twig', array(
             'form' => $form->createView(),
             'error' => $error,
         ));
