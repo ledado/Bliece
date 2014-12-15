@@ -1,5 +1,22 @@
 {% extends '::base.html.twig' %}
+<<<<<<< Updated upstream
 {% block javascript %}{% endblock %}
+=======
+{% block javascripts %}
+    {% javascripts '@MainApiBundle/Resources/public/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {#<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>#}
+    {#<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>#}
+    {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% stylesheets '@MainApiBundle/Resources/public/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+>>>>>>> Stashed changes
 {% block body %}
 
 {% block content %}{% endblock %}
