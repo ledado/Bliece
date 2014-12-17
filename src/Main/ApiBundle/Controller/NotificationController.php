@@ -26,17 +26,18 @@ class NotificationController extends Controller {
 
         $notification->setIsNew(false);
 
-        if($response){
+        $participant = $em->getRepository('MainApiBundle:Participant')->findOneBy(
+            array(
+                'event' => $notification->getEvent(),
+                'user' => $notification->getFromUser(),
+                'userUnder' => $notification->getToUser()
+            )
+        );
 
-            $participant = $em->getRepository('MainApiBundle:Participant')->findOneBy(
-                array(
-                    'event' => $notification->getEvent(),
-                    'user' => $notification->getFromUser(),
-                    'userUnder' => $notification->getToUser()
-                )
-            );
-            $participant->setIsActive(true);
-
+        if($response == "true"){
+            $participant->setIsActive(1);
+        }else{
+            $participant->setIsActive(0);
         }
 
         $em->flush();

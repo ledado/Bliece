@@ -22,7 +22,6 @@ main_api_create_task:
     path:     /create-task/{event_id}
     defaults: { _controller: MainApiBundle:Task:createTask }
 
-
 main_api_event:
     path:     /event/{eventName}
     defaults: { _controller: MainApiBundle:Event:getEvent }
