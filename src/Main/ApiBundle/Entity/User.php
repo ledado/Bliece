@@ -1,49 +1,46 @@
 <?php
-
 namespace Main\ApiBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * User
  */
-class User
+class User implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer
      */
     private $id;
-
     /**
      * @var string
      */
-    private $firstName;
-
+    private $username;
     /**
      * @var string
      */
     private $lastName;
-
     /**
      * @var string
      */
     private $email;
-
     /**
      * @var string
      */
     private $password;
-
     /**
      * @var \DateTime
      */
     private $date;
-
+    /**
+     * @var boolean
+     */
+    private $isActive;
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $events;
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -56,41 +53,39 @@ class User
     {
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
         $this->participans = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
+        $this->date = new \DateTime('now');
+        $this->isActive = true;
+    }
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
     /**
-     * Set firstName
+     * Set username
      *
-     * @param string $firstName
+     * @param string $username
      * @return User
      */
-    public function setFirstName($firstName)
+    public function setUsername($username)
     {
-        $this->firstName = $firstName;
-
+        $this->username = $username;
         return $this;
     }
-
     /**
-     * Get firstName
+     * Get username
      *
-     * @return string 
+     * @return string
      */
-    public function getFirstName()
+    public function getUsername()
     {
-        return $this->firstName;
+        return $this->username;
     }
-
     /**
      * Set lastName
      *
@@ -100,20 +95,17 @@ class User
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
         return $this;
     }
-
     /**
      * Get lastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
         return $this->lastName;
     }
-
     /**
      * Set email
      *
@@ -123,20 +115,17 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
-
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
         return $this->email;
     }
-
     /**
      * Set password
      *
@@ -146,20 +135,17 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
-
         return $this;
     }
-
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
-
     /**
      * Set date
      *
@@ -169,20 +155,37 @@ class User
     public function setDate($date)
     {
         $this->date = $date;
-
         return $this;
     }
-
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
         return $this->date;
     }
-
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
     /**
      * Add events
      *
@@ -192,10 +195,8 @@ class User
     public function addEvent(\Main\ApiBundle\Entity\Event $events)
     {
         $this->events[] = $events;
-
         return $this;
     }
-
     /**
      * Remove events
      *
@@ -205,17 +206,15 @@ class User
     {
         $this->events->removeElement($events);
     }
-
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {
         return $this->events;
     }
-
     /**
      * Add participans
      *
@@ -225,10 +224,8 @@ class User
     public function addParticipan(\Main\ApiBundle\Entity\Participant $participans)
     {
         $this->participans[] = $participans;
-
         return $this;
     }
-
     /**
      * Remove participans
      *
@@ -238,55 +235,107 @@ class User
     {
         $this->participans->removeElement($participans);
     }
-
     /**
      * Get participans
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getParticipans()
     {
         return $this->participans;
     }
+    
+    public function __toString(){
+        return $this->username.' '.$this->lastName;
+    }
+    /**
+     * Security
+     */
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+    public function eraseCredentials()
+    {
+    }
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $works;
+    private $tasks;
 
 
     /**
-     * Add works
+     * Add tasks
      *
-     * @param \Main\ApiBundle\Entity\Work $works
+     * @param \Main\ApiBundle\Entity\Task $tasks
      * @return User
      */
-    public function addWork(\Main\ApiBundle\Entity\Work $works)
+    public function addTask(\Main\ApiBundle\Entity\Task $tasks)
     {
-        $this->works[] = $works;
+        $this->tasks[] = $tasks;
 
         return $this;
     }
 
     /**
-     * Remove works
+     * Remove tasks
      *
-     * @param \Main\ApiBundle\Entity\Work $works
+     * @param \Main\ApiBundle\Entity\Task $tasks
      */
-    public function removeWork(\Main\ApiBundle\Entity\Work $works)
+    public function removeTask(\Main\ApiBundle\Entity\Task $tasks)
     {
-        $this->works->removeElement($works);
+        $this->tasks->removeElement($tasks);
     }
 
     /**
-     * Get works
+     * Get tasks
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getWorks()
+    public function getTasks()
     {
-        return $this->works;
-    }
-    public function __toString(){
-        return $this->firstName.' '.$this->lastName;
+        return $this->tasks;
     }
 }

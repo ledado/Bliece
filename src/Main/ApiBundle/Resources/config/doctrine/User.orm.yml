@@ -12,31 +12,31 @@ Main\ApiBundle\Entity\User:
             generator:
                 strategy: IDENTITY
     fields:
-        firstName:
+        username:
             type: string
             nullable: false
-            length: 50
+            length: 25
             fixed: false
             comment: ''
             default: ''
         lastName:
             type: string
             nullable: false
-            length: 50
+            length: 25
             fixed: false
             comment: ''
             default: ''
         email:
             type: string
             nullable: false
-            length: 50
+            length: 60
             fixed: false
             comment: ''
             default: ''
         password:
             type: string
             nullable: false
-            length: 50
+            length: 64
             fixed: false
             comment: ''
             default: ''
@@ -44,6 +44,11 @@ Main\ApiBundle\Entity\User:
             type: datetime
             nullable: false
             comment: ''
+        isActive:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
     oneToMany:
         events:
             targetEntity: Event
@@ -60,14 +65,9 @@ Main\ApiBundle\Entity\User:
             mappedBy: userUnder
             cascade: [persist]
             orphanRemoval: true
-        works:
-            targetEntity: Work
-            mappedBy: user
-            cascade: [persist]
-            orphanRemoval: true
-        works:
-            targetEntity: Work
-            mappedBy: userTo
+        tasks:
+            targetEntity: Task
+            mappedBy: chef
             cascade: [persist]
             orphanRemoval: true
     lifecycleCallbacks: {  }

@@ -35,9 +35,14 @@ class Task
     private $date;
 
     /**
-     * @var \Main\ApiBundle\Entity\Work
+     * @var \Main\ApiBundle\Entity\Participant
      */
-    private $work;
+    private $participant;
+
+    /**
+     * @var \Main\ApiBundle\Entity\User
+     */
+    private $chef;
 
 
     /**
@@ -143,25 +148,48 @@ class Task
     }
 
     /**
-     * Set work
+     * Set participant
      *
-     * @param \Main\ApiBundle\Entity\Work $work
+     * @param \Main\ApiBundle\Entity\Participant $participant
      * @return Task
      */
-    public function setWork(\Main\ApiBundle\Entity\Work $work = null)
+    public function setParticipant(\Main\ApiBundle\Entity\Participant $participant = null)
     {
-        $this->work = $work;
+        $this->participant = $participant;
 
         return $this;
     }
 
     /**
-     * Get work
+     * Get participant
      *
-     * @return \Main\ApiBundle\Entity\Work 
+     * @return \Main\ApiBundle\Entity\Participant 
      */
-    public function getWork()
+    public function getParticipant()
     {
-        return $this->work;
+        return $this->participant;
+    }
+
+    /**
+     * Set chef
+     *
+     * @param \Main\ApiBundle\Entity\User $chef
+     * @return Task
+     */
+    public function setChef(\Main\ApiBundle\Entity\User $chef = null)
+    {
+        $this->chef = $chef;
+
+        return $this;
+    }
+
+    /**
+     * Get chef
+     *
+     * @return \Main\ApiBundle\Entity\User 
+     */
+    public function getChef()
+    {
+        return $this->chef;
     }
 }

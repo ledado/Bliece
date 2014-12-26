@@ -1,17 +1,31 @@
+{% extends 'MainApiBundle::layout.html.twig' %}
+
+
+{% block content %}
 <a href="{{ path('main_api_create_event') }}">Create event</a><br />
-<a href="{{ path('main_api_logout') }}">Logout</a><br />
+<a href="{{ path('login') }}">Login</a><br />
+<a href="{{ path('logout') }}">Logout</a><br />
+{{ user }}
 <br/>
 <b>My events</b><br/>
 {% for event in events %}
     <br /><br /><br />
-    {{ event.name }}<br />
+    <a href="{{ path('main_api_event', {'eventName': event.name}) }}">
+        {{ event.name }}
+    </a>
+    <br />
     {{ event.description }}<br />
     {{ event.eventDate|date('Y-m-d') }}<br />
     <a href="{{ path('main_api_add_participant', {'event_id': event.id}) }}">Add participant</a><br />
     {% for participant in event.participans %}
+
         {{ participant.userUnder }}
-        <a href="{{ path('main_api_get_work', {'event_id': event.id, 'participant_id': participant.id}) }}">Get work</a><br />
+        {% for task in participant.tasks %}
+            {{ task.title }}
+        {% endfor %}
+        <a href="{{ path('main_api_create_task', {'participant_id': participant.id}) }}">Create task</a><br />
     {% endfor %}
 {% endfor %}
 
 <br/><br/>
+{% endblock %}
