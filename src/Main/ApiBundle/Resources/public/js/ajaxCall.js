@@ -25,7 +25,7 @@ function ajaxCall(notificationId, response){
 
         },
         complete: function(){
-            $("")
+
         }
 
     });

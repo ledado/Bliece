@@ -1,7 +1,7 @@
 {% extends 'MainApiBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
 
-<<<<<<< Updated upstream
-=======
     <script>
         var ajaxLink = '{{ path('main_api_notification_ajaxCall') }}';
 
@@ -38,7 +38,6 @@
 
 
 {% endblock %}
->>>>>>> Stashed changes
 
 {% block content %}
 <a href="{{ path('main_api_create_event') }}">Create event</a><br />
@@ -49,18 +48,41 @@
 <b>My events</b><br/>
 {% for event in events %}
     <br /><br /><br />
-    <a href="{{ path('main_api_event', {'event': event.name}) }}">
+    <a href="{{ path('main_api_event', {'eventName': event.name}) }}">
         {{ event.name }}
     </a>
     <br />
     {{ event.description }}<br />
+
+    <a href="{{ path('main_api_create_task', {'event_id': event.id}) }}">Create task</a><br />
+
+
+
     {{ event.eventDate|date('Y-m-d') }}<br />
     <a href="{{ path('main_api_add_participant', {'event_id': event.id}) }}">Add participant</a><br />
     {% for participant in event.participans %}
+
         {{ participant.userUnder }}
-        <a href="{{ path('main_api_get_work', {'event_id': event.id, 'participant_id': participant.id}) }}">Get work</a><br />
+
+
     {% endfor %}
 {% endfor %}
 
 <br/><br/>
+<b>Notification</b><br/>
+    {% for notification in notifications %}
+        <div class="notification" id="notification{{ notification.id }}">
+            {{ notification.fromUser }}
+            {{ notification.title }}<br/>
+            <button class="agree"
+                    onclick="ajaxCall({{ notification.id }}, true)">Agree
+            </button>
+            <button class="disagree"
+                    onclick="ajaxCall({{ notification.id }}, false)">Disgree
+            </button>
+
+        </div>
+
+    {% endfor %}
+
 {% endblock %}

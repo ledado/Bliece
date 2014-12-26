@@ -19,18 +19,22 @@ class MainController extends Controller {
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
         $events = $em->getRepository('MainApiBundle:Event')->findByUser($user->getId());
-
+        $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(
+            array('to_user' => $user->getId(), 'isNew' => true)
+        );
 
         $eventsArray = array();
         foreach($events as $event){
             $eventsArray[] = $event;
+
         }
+
 
 
         return $this->render('MainApiBundle:Main:index.html.twig', array(
             'events' => $eventsArray,
-            'user' => $user
-
+            'user' => $user,
+            'notifications' => $notifications
             ));
     }
 } 

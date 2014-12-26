@@ -34,11 +34,10 @@ class NotificationController extends Controller {
             )
         );
 
-        if($response){
-            $participant->setIsActive(true);
-
+        if($response == "true"){
+            $participant->setIsActive(1);
         }else{
-            $participant->setIsActive(false);
+            $participant->setIsActive(0);
         }
 
         $em->flush();

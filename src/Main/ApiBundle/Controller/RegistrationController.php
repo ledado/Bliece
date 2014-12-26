@@ -37,7 +37,7 @@ class RegistrationController extends Controller {
             $em->flush();
 
 
-            return $this->redirect($this->generateUrl('main_api_homepage'));
+            return $this->redirect($this->generateUrl('main_api_dashboard'));
         }
 
         return $this->render('MainApiBundle:Registration:index.html.twig', array(

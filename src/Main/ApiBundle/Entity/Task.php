@@ -35,10 +35,17 @@ class Task
     private $date;
 
     /**
-     * @var \Main\ApiBundle\Entity\Work
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $work;
+    private $users;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -143,25 +150,36 @@ class Task
     }
 
     /**
-     * Set work
+     * Add users
      *
-     * @param \Main\ApiBundle\Entity\Work $work
+     * @param \Main\ApiBundle\Entity\user $users
      * @return Task
      */
-    public function setWork(\Main\ApiBundle\Entity\Work $work = null)
+    public function addUser(\Main\ApiBundle\Entity\user $users)
     {
-        $this->work = $work;
+        $users->addTask($this);
+        $this->users[] = $users;
 
         return $this;
     }
 
     /**
-     * Get work
+     * Remove users
      *
-     * @return \Main\ApiBundle\Entity\Work 
+     * @param \Main\ApiBundle\Entity\user $users
      */
-    public function getWork()
+    public function removeUser(\Main\ApiBundle\Entity\user $users)
     {
-        return $this->work;
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

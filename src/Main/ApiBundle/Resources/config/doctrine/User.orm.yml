@@ -65,14 +65,26 @@ Main\ApiBundle\Entity\User:
             mappedBy: userUnder
             cascade: [persist]
             orphanRemoval: true
-        works:
-            targetEntity: Work
-            mappedBy: user
+        notifications:
+            targetEntity: Notification
+            mappedBy: to_user
             cascade: [persist]
             orphanRemoval: true
-        works:
-            targetEntity: Work
-            mappedBy: userTo
+        notifications:
+            targetEntity: Notification
+            mappedBy: from_user
             cascade: [persist]
             orphanRemoval: true
+    manyToMany:
+        tasks:
+            targetEntity: Task
+            inversedBy: users
+            joinTable:
+                name: user_have_tasks
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    task_id:
+                        referencedColumnName: id
     lifecycleCallbacks: {  }

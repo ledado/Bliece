@@ -209,42 +209,46 @@ class Event
     {
         return $this->user;
     }
+
+
+
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $works;
+    private $notifications;
 
 
     /**
-     * Add works
+     * Add notifications
      *
-     * @param \Main\ApiBundle\Entity\Work $works
+     * @param \Main\ApiBundle\Entity\Notification $notifications
      * @return Event
      */
-    public function addWork(\Main\ApiBundle\Entity\Work $works)
+    public function addNotification(\Main\ApiBundle\Entity\Notification $notifications)
     {
-        $this->works[] = $works;
+        $this->notifications[] = $notifications;
 
         return $this;
     }
 
     /**
-     * Remove works
+     * Remove notifications
      *
-     * @param \Main\ApiBundle\Entity\Work $works
+     * @param \Main\ApiBundle\Entity\Notification $notifications
      */
-    public function removeWork(\Main\ApiBundle\Entity\Work $works)
+    public function removeNotification(\Main\ApiBundle\Entity\Notification $notifications)
     {
-        $this->works->removeElement($works);
+        $this->notifications->removeElement($notifications);
     }
 
     /**
-     * Get works
+     * Get notifications
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getWorks()
+    public function getNotifications()
     {
-        return $this->works;
+        return $this->notifications;
     }
 }

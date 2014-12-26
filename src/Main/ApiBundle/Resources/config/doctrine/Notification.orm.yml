@@ -1,7 +1,7 @@
-Main\ApiBundle\Entity\Event:
+Main\ApiBundle\Entity\Notification:
     type: entity
-    repositoryClass: Main\ApiBundle\Repository\EventRepository
-    table: event
+    repositoryClass: Main\ApiBundle\Repository\NotificationRepository
+    table: notification
     id:
         id:
             type: integer
@@ -12,45 +12,51 @@ Main\ApiBundle\Entity\Event:
             generator:
                 strategy: IDENTITY
     fields:
-        name:
+        title:
             type: string
             nullable: false
             length: 150
             fixed: false
             comment: ''
             default: ''
-        description:
-            type: text
+        type:
+            type: integer
             nullable: false
-            length: null
             fixed: false
             comment: ''
         date:
             type: datetime
             nullable: false
             comment: ''
-        eventDate:
-            type: datetime
-            nullable: false
+        isNew:
+            type: boolean
+            nullable: true
             comment: ''
+            default: '0'
     manyToOne:
-        user:
+        to_user:
             targetEntity: User
             cascade: [persist]
-            inversedBy: events
+            inversedBy: notifications
             joinColumn:
-                name: user_id
+                name: to_user_id
                 referencedColumnName: id
             orphanRemoval: true
-    oneToMany:
-        participans:
-            targetEntity: Participant
-            mappedBy: event
+        from_user:
+            targetEntity: User
             cascade: [persist]
+            inversedBy: notifications
+            joinColumn:
+                name: from_user_id
+                referencedColumnName: id
             orphanRemoval: true
-        notifications:
-            targetEntity: Notification
-            mappedBy: event
+        event:
+            targetEntity: Event
             cascade: [persist]
+            inversedBy: notifications
+            joinColumn:
+                name: event_id
+                referencedColumnName: id
             orphanRemoval: true
+
     lifecycleCallbacks: {  }

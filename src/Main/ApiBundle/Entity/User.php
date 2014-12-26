@@ -1,7 +1,5 @@
 <?php
-
 namespace Main\ApiBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -15,51 +13,38 @@ class User implements AdvancedUserInterface, \Serializable
      * @var integer
      */
     private $id;
-
     /**
      * @var string
      */
     private $username;
-
     /**
      * @var string
      */
     private $lastName;
-
     /**
      * @var string
      */
     private $email;
-
     /**
      * @var string
      */
     private $password;
-
     /**
      * @var \DateTime
      */
     private $date;
-
     /**
      * @var boolean
      */
     private $isActive;
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $events;
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $participans;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $works;
 
     /**
      * Constructor
@@ -68,22 +53,19 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
         $this->participans = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->works = new \Doctrine\Common\Collections\ArrayCollection();
+
         $this->date = new \DateTime('now');
         $this->isActive = true;
-
     }
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
     /**
      * Set username
      *
@@ -93,20 +75,17 @@ class User implements AdvancedUserInterface, \Serializable
     public function setUsername($username)
     {
         $this->username = $username;
-
         return $this;
     }
-
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
         return $this->username;
     }
-
     /**
      * Set lastName
      *
@@ -116,20 +95,17 @@ class User implements AdvancedUserInterface, \Serializable
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
         return $this;
     }
-
     /**
      * Get lastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
         return $this->lastName;
     }
-
     /**
      * Set email
      *
@@ -139,20 +115,17 @@ class User implements AdvancedUserInterface, \Serializable
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
-
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
         return $this->email;
     }
-
     /**
      * Set password
      *
@@ -162,20 +135,17 @@ class User implements AdvancedUserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
-
         return $this;
     }
-
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
-
     /**
      * Set date
      *
@@ -185,20 +155,17 @@ class User implements AdvancedUserInterface, \Serializable
     public function setDate($date)
     {
         $this->date = $date;
-
         return $this;
     }
-
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
         return $this->date;
     }
-
     /**
      * Set isActive
      *
@@ -208,20 +175,17 @@ class User implements AdvancedUserInterface, \Serializable
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
-
         return $this;
     }
-
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
         return $this->isActive;
     }
-
     /**
      * Add events
      *
@@ -231,10 +195,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function addEvent(\Main\ApiBundle\Entity\Event $events)
     {
         $this->events[] = $events;
-
         return $this;
     }
-
     /**
      * Remove events
      *
@@ -244,17 +206,15 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->events->removeElement($events);
     }
-
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {
         return $this->events;
     }
-
     /**
      * Add participans
      *
@@ -264,10 +224,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function addParticipan(\Main\ApiBundle\Entity\Participant $participans)
     {
         $this->participans[] = $participans;
-
         return $this;
     }
-
     /**
      * Remove participans
      *
@@ -277,75 +235,35 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->participans->removeElement($participans);
     }
-
     /**
      * Get participans
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getParticipans()
     {
         return $this->participans;
     }
-
-    /**
-     * Add works
-     *
-     * @param \Main\ApiBundle\Entity\Work $works
-     * @return User
-     */
-    public function addWork(\Main\ApiBundle\Entity\Work $works)
-    {
-        $this->works[] = $works;
-
-        return $this;
-    }
-
-    /**
-     * Remove works
-     *
-     * @param \Main\ApiBundle\Entity\Work $works
-     */
-    public function removeWork(\Main\ApiBundle\Entity\Work $works)
-    {
-        $this->works->removeElement($works);
-    }
-
-    /**
-     * Get works
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getWorks()
-    {
-        return $this->works;
-    }
+    
     public function __toString(){
         return $this->username.' '.$this->lastName;
     }
-
-
-
-
     /**
      * Security
      */
     public function getSalt()
     {
-    // you *may* need a real salt depending on your encoder
-    // see section on salt below
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
         return null;
     }
     public function getRoles()
     {
         return array('ROLE_USER');
-
     }
     public function eraseCredentials()
     {
-
     }
-
     public function serialize()
     {
         return serialize(array(
@@ -366,27 +284,96 @@ class User implements AdvancedUserInterface, \Serializable
             // $this->salt
             ) = unserialize($serialized);
     }
-
     public function isAccountNonExpired()
     {
         return true;
     }
-
     public function isAccountNonLocked()
     {
         return true;
     }
-
     public function isCredentialsNonExpired()
     {
         return true;
     }
-
     public function isEnabled()
     {
         return $this->isActive;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $tasks;
 
 
+    /**
+     * Add tasks
+     *
+     * @param \Main\ApiBundle\Entity\Task $tasks
+     * @return User
+     */
+    public function addTask(\Main\ApiBundle\Entity\Task $tasks)
+    {
+        $this->tasks[] = $tasks;
 
+        return $this;
+    }
+
+    /**
+     * Remove tasks
+     *
+     * @param \Main\ApiBundle\Entity\Task $tasks
+     */
+    public function removeTask(\Main\ApiBundle\Entity\Task $tasks)
+    {
+        $this->tasks->removeElement($tasks);
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $notifications;
+
+
+    /**
+     * Add notifications
+     *
+     * @param \Main\ApiBundle\Entity\Notification $notifications
+     * @return User
+     */
+    public function addNotification(\Main\ApiBundle\Entity\Notification $notifications)
+    {
+        $this->notifications[] = $notifications;
+
+        return $this;
+    }
+
+    /**
+     * Remove notifications
+     *
+     * @param \Main\ApiBundle\Entity\Notification $notifications
+     */
+    public function removeNotification(\Main\ApiBundle\Entity\Notification $notifications)
+    {
+        $this->notifications->removeElement($notifications);
+    }
+
+    /**
+     * Get notifications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
 }

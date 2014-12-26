@@ -1,2 +1,13 @@
-{{ form(form) }}
-{{ error }}
+{% extends 'MainApiBundle::layout.html.twig' %}
+
+{% block content %}
+
+    {{ form(form) }}
+    {{ error }}
+
+
+
+    <br />
+    <a href="{{ path('main_api_dashboard') }}">Back</a><br />
+
+{% endblock %}

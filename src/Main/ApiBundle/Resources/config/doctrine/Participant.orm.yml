@@ -11,7 +11,12 @@ Main\ApiBundle\Entity\Participant:
             id: true
             generator:
                 strategy: IDENTITY
-    fields: ~
+    fields:
+        isActive:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
     manyToOne:
         event:
             targetEntity: Event
@@ -37,4 +42,5 @@ Main\ApiBundle\Entity\Participant:
                 name: user_under_id
                 referencedColumnName: id
             orphanRemoval: true
+
     lifecycleCallbacks: {  }

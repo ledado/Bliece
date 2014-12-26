@@ -1,7 +1,17 @@
 {% extends 'MainApiBundle::layout.html.twig' %}
 
 {% block content %}
-    {{ event.name }}<br/>
-    {{ event.description }}<br/>
+    {% if error == '' %}
+        {{ event.name }}<br/>
+        {{ event.description }}<br/>
+        {% for participant in event.participans %}
+            {{ participant.userUnder }}<br/>
+        {% endfor %}
+    {% else %}
+        {{ error }}
+    {% endif %}
 
+
+    <br/>
+    <a href="{{ path('main_api_dashboard') }}">Back</a><br />
 {% endblock %}
