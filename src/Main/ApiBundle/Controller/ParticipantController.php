@@ -41,7 +41,7 @@ class ParticipantController extends Controller {
 
         $error = "";
 
-
+        $asdfsd = "dsfaf";
 
         if ($form->isValid()) {
             $data = $form->getData();
