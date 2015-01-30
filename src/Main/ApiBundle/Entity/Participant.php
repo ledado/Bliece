@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Participant
 {
     /**
-     * @var integer
+     * @var boolean
      */
-    private $id;
+    private $isActive;
 
     /**
      * @var \Main\ApiBundle\Entity\Event
@@ -28,90 +28,6 @@ class Participant
      * @var \Main\ApiBundle\Entity\User
      */
     private $userUnder;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set event
-     *
-     * @param \Main\ApiBundle\Entity\Event $event
-     * @return Participant
-     */
-    public function setEvent(\Main\ApiBundle\Entity\Event $event = null)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * Get event
-     *
-     * @return \Main\ApiBundle\Entity\Event 
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \Main\ApiBundle\Entity\User $user
-     * @return Participant
-     */
-    public function setUser(\Main\ApiBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Main\ApiBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set userUnder
-     *
-     * @param \Main\ApiBundle\Entity\User $userUnder
-     * @return Participant
-     */
-    public function setUserUnder(\Main\ApiBundle\Entity\User $userUnder = null)
-    {
-        $this->userUnder = $userUnder;
-
-        return $this;
-    }
-
-    /**
-     * Get userUnder
-     *
-     * @return \Main\ApiBundle\Entity\User 
-     */
-    public function getUserUnder()
-    {
-        return $this->userUnder;
-    }
-    /**
-     * @var boolean
-     */
-    private $isActive;
 
 
     /**
@@ -135,5 +51,74 @@ class Participant
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Set event
+     *
+     * @param \Main\ApiBundle\Entity\Event $event
+     * @return Participant
+     */
+    public function setEvent(\Main\ApiBundle\Entity\Event $event)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return \Main\ApiBundle\Entity\Event 
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Main\ApiBundle\Entity\User $user
+     * @return Participant
+     */
+    public function setUser(\Main\ApiBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Main\ApiBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set userUnder
+     *
+     * @param \Main\ApiBundle\Entity\User $userUnder
+     * @return Participant
+     */
+    public function setUserUnder(\Main\ApiBundle\Entity\User $userUnder)
+    {
+        $this->userUnder = $userUnder;
+
+        return $this;
+    }
+
+    /**
+     * Get userUnder
+     *
+     * @return \Main\ApiBundle\Entity\User 
+     */
+    public function getUserUnder()
+    {
+        return $this->userUnder;
     }
 }

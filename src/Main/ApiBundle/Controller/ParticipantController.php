@@ -41,7 +41,7 @@ class ParticipantController extends Controller {
 
         $error = "";
 
-        
+
 
         if ($form->isValid()) {
             $data = $form->getData();
