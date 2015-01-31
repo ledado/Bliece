@@ -72,7 +72,6 @@
 <b>Notification</b><br/>
     {% for notification in notifications %}
         <div class="notification" id="notification{{ notification.id }}">
-            {{ notification.fromUser }}
             {{ notification.title }}<br/>
             <button class="agree"
                     onclick="ajaxCall({{ notification.id }}, true)">Agree

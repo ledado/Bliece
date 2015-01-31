@@ -15,14 +15,14 @@ class MainController extends Controller {
     public function indexAction(){
 
 
-
+//
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
         $events = $em->getRepository('MainApiBundle:Event')->findByUser($user->getId());
         $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(
-            array('to_user' => $user->getId(), 'isNew' => true)
+            array('user' => $user->getId(), 'isNew' => true)
         );
-
+//
         $eventsArray = array();
         foreach($events as $event){
             $eventsArray[] = $event;

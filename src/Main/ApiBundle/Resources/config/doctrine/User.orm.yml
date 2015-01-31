@@ -67,12 +67,12 @@ Main\ApiBundle\Entity\User:
             orphanRemoval: true
         eventUserNotifications:
             targetEntity: EventUserNotification
-            mappedBy: event
+            mappedBy: user
             cascade: [persist]
             orphanRemoval: true
         notifications:
             targetEntity: Notification
-            mappedBy: from_user
+            mappedBy: user
             cascade: [persist]
             orphanRemoval: true
     manyToMany:

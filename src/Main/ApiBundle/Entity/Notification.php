@@ -35,9 +35,14 @@ class Notification
     private $isNew;
 
     /**
+     * @var \Main\ApiBundle\Entity\EventUserNotification
+     */
+    private $eventUserNotification;
+
+    /**
      * @var \Main\ApiBundle\Entity\User
      */
-    private $to_user;
+    private $user;
 
 
     /**
@@ -143,25 +148,48 @@ class Notification
     }
 
     /**
-     * Set to_user
+     * Set eventUserNotification
      *
-     * @param \Main\ApiBundle\Entity\User $toUser
+     * @param \Main\ApiBundle\Entity\EventUserNotification $eventUserNotification
      * @return Notification
      */
-    public function setToUser(\Main\ApiBundle\Entity\User $toUser = null)
+    public function setEventUserNotification(\Main\ApiBundle\Entity\EventUserNotification $eventUserNotification = null)
     {
-        $this->to_user = $toUser;
+        $this->eventUserNotification = $eventUserNotification;
 
         return $this;
     }
 
     /**
-     * Get to_user
+     * Get eventUserNotification
+     *
+     * @return \Main\ApiBundle\Entity\EventUserNotification 
+     */
+    public function getEventUserNotification()
+    {
+        return $this->eventUserNotification;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Main\ApiBundle\Entity\User $user
+     * @return Notification
+     */
+    public function setUser(\Main\ApiBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
      *
      * @return \Main\ApiBundle\Entity\User 
      */
-    public function getToUser()
+    public function getUser()
     {
-        return $this->to_user;
+        return $this->user;
     }
 }

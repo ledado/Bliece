@@ -34,12 +34,16 @@ Main\ApiBundle\Entity\Notification:
             comment: ''
             default: '0'
     manyToOne:
-        to_user:
+        user:
             targetEntity: User
             cascade: [persist]
-            inversedBy: eventUserNotifications
+            inversedBy: notifications
             joinColumn:
-                name: to_user_id
+                name: user_id
                 referencedColumnName: id
             orphanRemoval: true
+    oneToOne:
+        eventUserNotification:
+            targetEntity: EventUserNotification
+            mappedBy: notification
     lifecycleCallbacks: {  }
