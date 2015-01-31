@@ -16,13 +16,13 @@ function ajaxCall(notificationId, response){
         success: function(response){
 
             if(response.code == 100){
-                alert('1');
+
 
             }
 
         },
         beforeSend: function(){
-
+            $("#notification"+notificationId).remove();
         },
         complete: function(){
 
