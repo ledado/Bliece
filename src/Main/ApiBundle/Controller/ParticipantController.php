@@ -8,6 +8,7 @@
 
 namespace Main\ApiBundle\Controller;
 
+use Main\ApiBundle\Entity\EventUserNotification;
 use Main\ApiBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,24 +38,24 @@ class ParticipantController extends Controller {
 
         $form->handleRequest($request);
 
-
-
         $error = "";
 
-
-
-        
         if ($form->isValid()) {
             $data = $form->getData();
 
             $notification = new Notification();
             $notification->setTitle('Notification title');
             $notification->setType(1);
-            $notification->setToUser($data['usersUnder']);
-            $notification->setFromUser($userId);
+            $notification->setUser($data['usersUnder']); //pre koho je urcena
             $notification->setDate(new \DateTime('now'));
             $notification->setIsNew(true);
+            $em->persist($notification);
+            $em->flush();
 
+            $eventUserNotification = new EventUserNotification();
+            $eventUserNotification->setEvent($eventId);
+            $eventUserNotification->setUser($userId); //od koho je urcena
+            $eventUserNotification->setNotification($notification);
 
             $participant = new Participant();
             $participant->setEvent($eventId);
@@ -63,7 +64,8 @@ class ParticipantController extends Controller {
             $participant->setIsActive(false);
 
             $em->persist($participant);
-            $em->persist($notification);
+
+            $em->persist($eventUserNotification);
             $em->flush();
             $error = 'Participant was added';
         }

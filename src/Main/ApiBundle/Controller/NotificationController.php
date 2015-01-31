@@ -28,9 +28,9 @@ class NotificationController extends Controller {
 
         $participant = $em->getRepository('MainApiBundle:Participant')->findOneBy(
             array(
-                'event' => $notification->getEvent(),
-                'user' => $notification->getFromUser(),
-                'userUnder' => $notification->getToUser()
+                'event' => $notification->getEventUserNotification()->getEvent(),
+                'user' => $notification->getEventUserNotification()->getUser(),
+                'userUnder' => $notification->getUser()
             )
         );
 

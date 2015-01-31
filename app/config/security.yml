@@ -45,7 +45,9 @@ security:
 
         - { path: ^/dashboard$, role: ROLE_USER }
         - { path: ^/create-event$, role: ROLE_USER }
+        - { path: ^/create-task/, role: ROLE_USER }
         - { path: ^/event/, role: ROLE_USER }
+        - { path: ^/add-participant/, role: ROLE_USER }
     encoders:
         "Main\ApiBundle\Entity\User": sha1
 

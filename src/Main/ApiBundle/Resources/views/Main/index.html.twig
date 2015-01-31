@@ -4,36 +4,6 @@
 
     <script>
         var ajaxLink = '{{ path('main_api_notification_ajaxCall') }}';
-
-
-        function ajaxCall(notificationId, response){
-
-            $.ajax({
-                url: ajaxLink,
-                data: {
-                    notificationId: notificationId,
-                    response: response
-
-                },
-                dataType: 'json',
-
-                success: function(response){
-
-                    if(response.code == 100){
-                        alert('1');
-
-                    }
-
-                },
-                beforeSend: function(){
-
-                },
-                complete: function(){
-                    $("#notification"+notificationId).remove();
-                }
-
-            });
-        }
     </script>
 
 
