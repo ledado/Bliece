@@ -13,26 +13,18 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class MainController extends Controller {
     public function indexAction(){
-
-
-//
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
         $events = $em->getRepository('MainApiBundle:Event')->findByUser($user->getId());
         $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(
             array('user' => $user->getId(), 'isNew' => true)
         );
-//
-        $eventsArray = array();
-        foreach($events as $event){
-            $eventsArray[] = $event;
 
-        }
 
 
 
         return $this->render('MainApiBundle:Main:index.html.twig', array(
-            'events' => $eventsArray,
+            'events' => $events,
             'user' => $user,
             'notifications' => $notifications
             ));

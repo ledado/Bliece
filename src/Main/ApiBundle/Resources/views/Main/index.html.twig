@@ -21,6 +21,9 @@
         {{ event.name }}
     </a>
     <br />
+
+    <b>Founder: </b>{{ event.user }}
+    <br />
     {{ event.description }}<br />
 
     <a href="{{ path('main_api_create_task', {'event_id': event.id}) }}">Create task</a><br />
