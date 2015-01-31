@@ -34,6 +34,7 @@ class Event
      */
     private $eventDate;
 
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
