@@ -14,13 +14,18 @@ use Main\ApiBundle\Entity\Task;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
-
 class TaskController extends Controller {
     public function createTaskAction(Request $request, $event_id){
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
         $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
+
+        $event = $em->getRepository('MainApiBundle:Event')->findOneById($event_id);
+        if($userId != $event->getUser()){ //osetrenie ak by chcel iny ako zakladatel pridat task k eventu
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
+
+
         $participants = $em->getRepository('MainApiBundle:Participant')->findBy(
             array('event' => $event_id, 'user' => $userId)
 
@@ -50,18 +55,18 @@ class TaskController extends Controller {
 
             $data = $form->getData();
 
-            $event = new Task();
-            $event->setTitle($data['title']);
-            $event->setDescription($data['description']);
-            $event->setDate(new \DateTime('now'));
-            $event->setDonePercentage(0);
+            $task = new Task();
+            $task->setTitle($data['title']);
+            $task->setDescription($data['description']);
+            $task->setDate(new \DateTime('now'));
+            $task->setDonePercentage(0);
 
             $requestData = $request->get('form');
             $a = 0;
-            for($i = 0; $i == $a; $i++)
+            for($i = 0; $i == $a; $i++) //pridavanie checknutych userov
             if(!empty($requestData[$i])){
 
-                $event->addUser(
+                $task->addUser(
                     $em->getRepository('MainApiBundle:User')->findOneById($requestData[$i])
 
                 );
@@ -70,7 +75,7 @@ class TaskController extends Controller {
                 $a--;
             }
 
-            $em->persist($event);
+            $em->persist($task);
             $em->flush();
             $error = 'Task was created';
         }

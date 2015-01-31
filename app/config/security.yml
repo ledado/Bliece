@@ -44,6 +44,8 @@ security:
         - { path: ^/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: ^/dashboard$, role: ROLE_USER }
+        - { path: ^/create-event$, role: ROLE_USER }
+        - { path: ^/event/, role: ROLE_USER }
     encoders:
         "Main\ApiBundle\Entity\User": sha1
 
