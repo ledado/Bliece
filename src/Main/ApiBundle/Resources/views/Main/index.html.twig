@@ -43,10 +43,10 @@
         <div class="notification" id="notification{{ notification.id }}">
             {{ notification.title }}<br/>
             <button class="agree"
-                    onclick="ajaxCall({{ notification.id }}, true)">Agree
+                    onclick="confirmNotification({{ notification.id }}, true)">Agree
             </button>
             <button class="disagree"
-                    onclick="ajaxCall({{ notification.id }}, false)">Disgree
+                    onclick="confirmNotification({{ notification.id }}, false)">Disgree
             </button>
 
         </div>

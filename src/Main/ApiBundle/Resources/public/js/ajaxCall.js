@@ -2,7 +2,7 @@
  * Created by Lednicky on 14.12.2014.
  */
 
-function ajaxCall(notificationId, response){
+function confirmNotification(notificationId, response){
 
     $.ajax({
         url: ajaxLink,
