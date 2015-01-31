@@ -37,26 +37,9 @@ Main\ApiBundle\Entity\Notification:
         to_user:
             targetEntity: User
             cascade: [persist]
-            inversedBy: notifications
+            inversedBy: eventUserNotifications
             joinColumn:
                 name: to_user_id
                 referencedColumnName: id
             orphanRemoval: true
-        from_user:
-            targetEntity: User
-            cascade: [persist]
-            inversedBy: notifications
-            joinColumn:
-                name: from_user_id
-                referencedColumnName: id
-            orphanRemoval: true
-        event:
-            targetEntity: Event
-            cascade: [persist]
-            inversedBy: notifications
-            joinColumn:
-                name: event_id
-                referencedColumnName: id
-            orphanRemoval: true
-
     lifecycleCallbacks: {  }

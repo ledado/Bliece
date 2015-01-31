@@ -39,11 +39,6 @@ class Notification
      */
     private $to_user;
 
-    /**
-     * @var \Main\ApiBundle\Entity\User
-     */
-    private $from_user;
-
 
     /**
      * Get id
@@ -168,56 +163,5 @@ class Notification
     public function getToUser()
     {
         return $this->to_user;
-    }
-
-    /**
-     * Set from_user
-     *
-     * @param \Main\ApiBundle\Entity\User $fromUser
-     * @return Notification
-     */
-    public function setFromUser(\Main\ApiBundle\Entity\User $fromUser = null)
-    {
-        $this->from_user = $fromUser;
-
-        return $this;
-    }
-
-    /**
-     * Get from_user
-     *
-     * @return \Main\ApiBundle\Entity\User 
-     */
-    public function getFromUser()
-    {
-        return $this->from_user;
-    }
-    /**
-     * @var \Main\ApiBundle\Entity\Event
-     */
-    private $event;
-
-
-    /**
-     * Set event
-     *
-     * @param \Main\ApiBundle\Entity\Event $event
-     * @return Notification
-     */
-    public function setEvent(\Main\ApiBundle\Entity\Event $event = null)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * Get event
-     *
-     * @return \Main\ApiBundle\Entity\Event 
-     */
-    public function getEvent()
-    {
-        return $this->event;
     }
 }

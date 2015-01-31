@@ -376,4 +376,42 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->notifications;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $eventUserNotifications;
+
+
+    /**
+     * Add eventUserNotifications
+     *
+     * @param \Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications
+     * @return User
+     */
+    public function addEventUserNotification(\Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications)
+    {
+        $this->eventUserNotifications[] = $eventUserNotifications;
+
+        return $this;
+    }
+
+    /**
+     * Remove eventUserNotifications
+     *
+     * @param \Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications
+     */
+    public function removeEventUserNotification(\Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications)
+    {
+        $this->eventUserNotifications->removeElement($eventUserNotifications);
+    }
+
+    /**
+     * Get eventUserNotifications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventUserNotifications()
+    {
+        return $this->eventUserNotifications;
+    }
 }

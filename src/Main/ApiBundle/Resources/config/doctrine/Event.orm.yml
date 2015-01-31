@@ -48,8 +48,8 @@ Main\ApiBundle\Entity\Event:
             mappedBy: event
             cascade: [persist]
             orphanRemoval: true
-        notifications:
-            targetEntity: Notification
+        eventUserNotifications:
+            targetEntity: EventUserNotification
             mappedBy: event
             cascade: [persist]
             orphanRemoval: true

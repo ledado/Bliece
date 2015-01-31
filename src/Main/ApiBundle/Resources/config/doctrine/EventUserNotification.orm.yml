@@ -1,0 +1,26 @@
+Main\ApiBundle\Entity\EventUserNotification:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\EventUserNotificationRepository
+    table: event_user_notification
+    id:
+        event:
+          associationKey: true
+        user:
+          associationKey: true
+        notification:
+          associationKey: true
+    fields: ~
+
+    manyToOne:
+        event:
+            targetEntity: Event
+            inversedBy: eventUserNotifications
+        user:
+            targetEntity: User
+            inversedBy: eventUserNotifications
+    oneToOne:
+        notification:
+            targetEntity: Notification
+            inversedBy: eventUserNotification
+
+    lifecycleCallbacks: {  }

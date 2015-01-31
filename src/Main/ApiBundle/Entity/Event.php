@@ -40,6 +40,11 @@ class Event
     private $participans;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $eventUserNotifications;
+
+    /**
      * @var \Main\ApiBundle\Entity\User
      */
     private $user;
@@ -50,6 +55,7 @@ class Event
     public function __construct()
     {
         $this->participans = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->eventUserNotifications = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -188,6 +194,39 @@ class Event
     }
 
     /**
+     * Add eventUserNotifications
+     *
+     * @param \Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications
+     * @return Event
+     */
+    public function addEventUserNotification(\Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications)
+    {
+        $this->eventUserNotifications[] = $eventUserNotifications;
+
+        return $this;
+    }
+
+    /**
+     * Remove eventUserNotifications
+     *
+     * @param \Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications
+     */
+    public function removeEventUserNotification(\Main\ApiBundle\Entity\EventUserNotification $eventUserNotifications)
+    {
+        $this->eventUserNotifications->removeElement($eventUserNotifications);
+    }
+
+    /**
+     * Get eventUserNotifications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventUserNotifications()
+    {
+        return $this->eventUserNotifications;
+    }
+
+    /**
      * Set user
      *
      * @param \Main\ApiBundle\Entity\User $user
@@ -208,47 +247,5 @@ class Event
     public function getUser()
     {
         return $this->user;
-    }
-
-
-
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $notifications;
-
-
-    /**
-     * Add notifications
-     *
-     * @param \Main\ApiBundle\Entity\Notification $notifications
-     * @return Event
-     */
-    public function addNotification(\Main\ApiBundle\Entity\Notification $notifications)
-    {
-        $this->notifications[] = $notifications;
-
-        return $this;
-    }
-
-    /**
-     * Remove notifications
-     *
-     * @param \Main\ApiBundle\Entity\Notification $notifications
-     */
-    public function removeNotification(\Main\ApiBundle\Entity\Notification $notifications)
-    {
-        $this->notifications->removeElement($notifications);
-    }
-
-    /**
-     * Get notifications
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getNotifications()
-    {
-        return $this->notifications;
     }
 }
