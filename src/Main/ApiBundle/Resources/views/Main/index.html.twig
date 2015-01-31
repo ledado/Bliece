@@ -10,6 +10,21 @@
 {% endblock %}
 
 {% block content %}
+    <div id="header">
+        <div class="logo-box">
+            logo
+        </div>
+        <div class="search-box">
+            <form action="">
+                <input type="text" name="search-user" class="search-user-input" placeholder="Search">
+            </form>
+        </div>
+        <div class="user-box">
+
+        </div>
+    </div>
+
+
 <a href="{{ path('main_api_create_event') }}">Create event</a><br />
 <a href="{{ path('logout') }}">Logout</a><br />
 {{ user }}

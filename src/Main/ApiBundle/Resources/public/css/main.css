@@ -1,3 +1,41 @@
 body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+}
+/* vrch dashbordu*/
+#header{
+    width:100%;
+    height:50px;
+    background-color: #CCCCCC;
+}
+.logo-box{
+    width:60px;
+    height:50px;
+    margin-left: 20%;
+    position: absolute;
+}
+.search-box{
+    width:40%;
+    height:50px;
+    margin:0 30%;
+    position: absolute;
+}
+.user-box{
+    width:200px;
+    height:50px;
+    float: right;
+    margin-right:10%;
+}
+.search-user-input{
+    border-radius:3px;
+    border:none;
+    padding-left:4px;
+    height:30px;
+    width:60%;
 
 }
+/* end */

@@ -4,11 +4,19 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    {% endjavascripts %}
+    {% javascripts '@MainApiBundle/Resources/public/bootstrap/js/bootstrap.min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+
     {% endjavascripts %}
 {% endblock %}
 
 {% block stylesheets %}
     {% stylesheets '@MainApiBundle/Resources/public/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {% stylesheets '@MainApiBundle/Resources/public/bootstrap/css/bootstrap.min.css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}
