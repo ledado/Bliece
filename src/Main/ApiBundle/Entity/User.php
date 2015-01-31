@@ -414,4 +414,42 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->eventUserNotifications;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $connections;
+
+
+    /**
+     * Add connections
+     *
+     * @param \Main\ApiBundle\Entity\Connect $connections
+     * @return User
+     */
+    public function addConnection(\Main\ApiBundle\Entity\Connect $connections)
+    {
+        $this->connections[] = $connections;
+
+        return $this;
+    }
+
+    /**
+     * Remove connections
+     *
+     * @param \Main\ApiBundle\Entity\Connect $connections
+     */
+    public function removeConnection(\Main\ApiBundle\Entity\Connect $connections)
+    {
+        $this->connections->removeElement($connections);
+    }
+
+    /**
+     * Get connections
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getConnections()
+    {
+        return $this->connections;
+    }
 }

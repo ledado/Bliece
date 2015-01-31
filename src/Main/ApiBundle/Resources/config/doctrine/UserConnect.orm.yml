@@ -1,0 +1,21 @@
+Main\ApiBundle\Entity\UserConnect:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\UserConnectRepository
+    table: user_connect
+    id:
+        user:
+          associationKey: true
+        connect:
+          associationKey: true
+    fields: ~
+
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: userConnections
+    oneToOne:
+        connect:
+            targetEntity: Connect
+            inversedBy: userConnect
+
+    lifecycleCallbacks: {  }

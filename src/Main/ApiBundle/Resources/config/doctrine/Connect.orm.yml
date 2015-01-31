@@ -1,0 +1,33 @@
+Main\ApiBundle\Entity\Connect:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\ConnectRepository
+    table: connect
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        isActive:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
+    manyToOne:
+        user:
+            targetEntity: User
+            cascade: [persist]
+            inversedBy: connections
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            orphanRemoval: true
+    oneToOne:
+        userConnect:
+            targetEntity: UserConnect
+            mappedBy: connect
+    lifecycleCallbacks: {  }
