@@ -19,7 +19,7 @@ class NotificationController extends Controller {
 
 
         $notificationId = $request->query->get('notificationId');
-        $response = $request->query->get('response');
+        $response = $request->query->get('response'); //odpoved o priajati alebo odmietnuti
 
 
         $notification = $em->getRepository('MainApiBundle:Notification')->findOneById($notificationId);

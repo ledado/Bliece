@@ -1,11 +1,21 @@
 {% extends 'MainApiBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var connectLink = '{{ path('main_api_connect_ajaxCall') }}';
+    </script>
+
+
+{% endblock %}
+
 {% block content %}
     {% block header %}{{ parent() }}{% endblock %}
     {% if userProfile == null %}
         User not found.
     {% else %}
         {{ userProfile }}
-
+        <button class="sendConnect" onclick="sendConnectRequest({{ userProfile.id }})" >Connect</button>
 
 
     {% endif %}

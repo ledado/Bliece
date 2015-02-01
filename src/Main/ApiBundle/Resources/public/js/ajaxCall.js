@@ -30,3 +30,28 @@ function confirmNotification(notificationId, response){
 
     });
 }
+function sendConnectRequest(userId){
+    $.ajax({
+        url: connectLink,
+        data: {
+            toUserId: userId
+        },
+        dataType: 'json',
+
+        success: function(response){
+
+            if(response.code == 100){
+
+
+            }
+
+        },
+        beforeSend: function(){
+
+        },
+        complete: function(){
+
+        }
+
+    });
+}

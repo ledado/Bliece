@@ -30,6 +30,10 @@ main_api_notification_ajaxCall:
     path:     /ajaxcall
     defaults: { _controller: MainApiBundle:Notification:ajaxCall }
 
+main_api_connect_ajaxCall:
+    path:     /connect
+    defaults: { _controller: MainApiBundle:Connect:connect }
+
 main_api_user:
     path:     /user/{userId}
     defaults: { _controller: MainApiBundle:User:view }
