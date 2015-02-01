@@ -24,17 +24,35 @@ class ParticipantController extends Controller {
         $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
         $event = $em->getRepository('MainApiBundle:Event')->findOneById($event_id);
 
-        $form = $this->createFormBuilder()
-            ->add('usersUnder', 'entity', array(
-                'class' => 'MainApiBundle:User',
-                'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->orderBy('u.username', 'ASC');
-                    },
-            ))
+        $userConnects = $em->getRepository('MainApiBundle:UserConnect')->findByUser($user);
 
-            ->add('send', 'submit', array('label' => 'Send request'))
+        $form = $this->createFormBuilder()
             ->getForm();
+
+
+        foreach($userConnects as $key => $userConnect){
+            if($userConnect->getConnect()->getIsActive() == true){
+                $isPraticipant = false; //aby v pripade ze uz je medzi participantmi aby ho nezobrazilo
+                foreach($event->getParticipans() as $participant){
+                    if($participant->getUserUnder()->getId() == $userConnect->getConnect()->getUser()->getId()){
+                       $isPraticipant = true;
+                    }
+                }
+
+                if($isPraticipant == false){
+                    $form->add($key,'checkbox', array(
+                        'label'     => $userConnect->getConnect()->getUser(),
+                        'required'  => false,
+                        'value'     => $userConnect->getConnect()->getUser()->getId(),
+                    ));
+                }
+
+
+            }
+
+        }
+
+        $form->add('send', 'submit', array('label' => 'Send request'));
 
         $form->handleRequest($request);
 
