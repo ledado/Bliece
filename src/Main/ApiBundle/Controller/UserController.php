@@ -17,12 +17,26 @@ class UserController extends Controller{
 
         $userProfile = $em->getRepository('MainApiBundle:User')->findOneById($userId);
 
+        $userConnects = $em->getRepository('MainApiBundle:UserConnect')->findBy(
+            array('user' => $user)
+        );
+
+//        \Doctrine\Common\Util\Debug::dump($userConnect);
+        $isConnect = false;
+        foreach($userConnects as $userConnect){
+            if($userConnect->getConnect()->getUser()->getId() == $userId){ //v pripade ze zobrazis profil uziv ktoreho mas uz v spojeniach
+                $isConnect = true;
+            }
+
+        }
+
         if(!$userProfile){
             $userProfile = null;
         }
         return $this->render('MainApiBundle:User:view.html.twig', array(
             'user' => $user,
-            'userProfile' => $userProfile
+            'userProfile' => $userProfile,
+            'isConnect' => $isConnect
         ));
     }
 } 

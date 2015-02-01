@@ -75,6 +75,11 @@ Main\ApiBundle\Entity\User:
             mappedBy: user
             cascade: [persist]
             orphanRemoval: true
+        userConnections:
+            targetEntity: UserConnect
+            mappedBy: user
+            cascade: [persist]
+            orphanRemoval: true
         connections:
             targetEntity: Connect
             mappedBy: user

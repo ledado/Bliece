@@ -15,15 +15,18 @@
         User not found.
     {% else %}
         {{ userProfile }}
-        
         <div class="connect-box">
-            <button class="sendConnect" onclick="sendConnectRequest({{ userProfile.id }})" >Connect</button>
-            <div id="connect-loader" style="display:none;"><br>
-                <img src="{{ asset('bundles/mainapi/images/ajax-loader.gif') }}" alt="loader"/>
-            </div>
+        {% if isConnect == false %}
+
+                <button class="sendConnect" onclick="sendConnectRequest({{ userProfile.id }})" >Connect</button>
+                <div id="connect-loader" style="display:none;"><br>
+                    <img src="{{ asset('bundles/mainapi/images/ajax-loader.gif') }}" alt="loader"/>
+                </div>
+
+        {% else %}
+            Connected
+        {% endif %}
         </div>
-
-
 
     {% endif %}
 

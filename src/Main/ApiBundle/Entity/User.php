@@ -452,4 +452,42 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->connections;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $userConnections;
+
+
+    /**
+     * Add userConnections
+     *
+     * @param \Main\ApiBundle\Entity\UserConnect $userConnections
+     * @return User
+     */
+    public function addUserConnection(\Main\ApiBundle\Entity\UserConnect $userConnections)
+    {
+        $this->userConnections[] = $userConnections;
+
+        return $this;
+    }
+
+    /**
+     * Remove userConnections
+     *
+     * @param \Main\ApiBundle\Entity\UserConnect $userConnections
+     */
+    public function removeUserConnection(\Main\ApiBundle\Entity\UserConnect $userConnections)
+    {
+        $this->userConnections->removeElement($userConnections);
+    }
+
+    /**
+     * Get userConnections
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserConnections()
+    {
+        return $this->userConnections;
+    }
 }
