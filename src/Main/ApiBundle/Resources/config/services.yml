@@ -1,4 +1,7 @@
+parameters:
+    notification:    Main\ApiBundle\Services\NotificationService
+
 services:
-#    main_api.example:
-#        class: Main\ApiBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    notification_service:
+        class:  "%notification%"
+        arguments: [ @doctrine.orm.entity_manager ]
