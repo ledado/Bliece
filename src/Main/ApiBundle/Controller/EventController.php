@@ -70,7 +70,15 @@ class EventController extends Controller {
         $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
         $event = $em->getRepository('MainApiBundle:Event')->findOneByName($eventName);
 
-        if($event->getUser()->getId() != $user->getId()){
+        $verification = false;
+        foreach($event->getUser()->getUserConnections() as $userConnection){
+            if($userConnection->getConnect()->getUser()->getId() == $user->getId() && $userConnection->getConnect()->getIsActive() == true ){
+                $verification = true;
+            }
+        }
+
+
+        if($event->getUser()->getId() != $user->getId() && $verification == false){
             throw new \Exception('You do not have access ');
         }
 

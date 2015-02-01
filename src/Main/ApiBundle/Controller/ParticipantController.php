@@ -22,7 +22,7 @@ class ParticipantController extends Controller {
         $em = $this->get('doctrine')->getManager();
 
         $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
-        $eventId = $em->getRepository('MainApiBundle:Event')->findOneById($event_id);
+        $event = $em->getRepository('MainApiBundle:Event')->findOneById($event_id);
 
         $form = $this->createFormBuilder()
             ->add('usersUnder', 'entity', array(
@@ -43,30 +43,16 @@ class ParticipantController extends Controller {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $notification = new Notification();
-            $notification->setTitle('Notification title');
-            $notification->setType(1);
-            $notification->setUser($data['usersUnder']); //pre koho je urcena
-            $notification->setDate(new \DateTime('now'));
-            $notification->setIsNew(true);
-            $em->persist($notification);
-            $em->flush();
-
-            $eventUserNotification = new EventUserNotification();
-            $eventUserNotification->setEvent($eventId);
-            $eventUserNotification->setUser($userId); //od koho je urcena
-            $eventUserNotification->setNotification($notification);
+            $notification = $this->get('notification_service')->createNotification($data['usersUnder'],2,$event_id,$user->getId());
 
             $participant = new Participant();
-            $participant->setEvent($eventId);
+            $participant->setEvent($event);
             $participant->setUser($userId);
             $participant->setUserUnder($data['usersUnder']);
             $participant->setIsActive(false);
-
             $em->persist($participant);
-
-            $em->persist($eventUserNotification);
             $em->flush();
+
             $error = 'Participant was added';
         }
 

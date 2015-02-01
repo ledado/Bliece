@@ -43,13 +43,21 @@
         <b>Notification</b><br/>
         {% for notification in notifications %}
             <div class="notification" id="notification{{ notification.id }}">
-                {{ notification.title }}<br/>
-                <button class="agree"
-                        onclick="confirmNotification({{ notification.id }}, true)">Agree
-                </button>
-                <button class="disagree"
-                        onclick="confirmNotification({{ notification.id }}, false)">Disgree
-                </button>
+                {% if notification.type == 1 %}
+
+                {% elseif notification.type == 2 %}
+                <a href="{{ path('main_api_user', {'userId': notification.eventUserNotification.user.id}) }}">{{ notification.eventUserNotification.user }}</a> want you as participant in <a href="{{ path('main_api_event', {'eventName': notification.eventUserNotification.event}) }}">{{ notification.eventUserNotification.event }}</a>
+                    <br/>
+                    <button class="agree"
+                            onclick="confirmNotification({{ notification.id }}, true)">Agree
+                    </button>
+                    <button class="disagree"
+                            onclick="confirmNotification({{ notification.id }}, false)">Disgree
+                    </button>
+                {% elseif notification.type == 3 %}
+
+                {% endif %}
+
 
             </div>
 
