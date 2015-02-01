@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class MainController extends Controller {
     public function indexAction(){
         $user = $this->get('security.context')->getToken()->getUser();
+
         $em = $this->get('doctrine')->getManager();
         $events = $em->getRepository('MainApiBundle:Event')->findByUser($user->getId());
         $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(

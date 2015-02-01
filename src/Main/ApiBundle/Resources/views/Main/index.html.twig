@@ -20,55 +20,56 @@
             </form>
         </div>
         <div class="user-box">
-
+            <span class="user-name">
+                {{ user }}
+            </span>
+            <a href="{{ path('main_api_create_event') }}">Create event</a><br />
+            <a href="{{ path('logout') }}">Logout</a><br />
         </div>
     </div>
+    <div id="content">
+        <b>My events</b><br/>
+        {% for event in events %}
+            <br /><br /><br />
+            <a href="{{ path('main_api_event', {'eventName': event.name}) }}">
+                {{ event.name }}
+            </a>
+            <br />
 
+            <b>Founder: </b>{{ event.user }}
+            <br />
+            {{ event.description }}<br />
 
-<a href="{{ path('main_api_create_event') }}">Create event</a><br />
-<a href="{{ path('logout') }}">Logout</a><br />
-{{ user }}
-<br/>
-<b>My events</b><br/>
-{% for event in events %}
-    <br /><br /><br />
-    <a href="{{ path('main_api_event', {'eventName': event.name}) }}">
-        {{ event.name }}
-    </a>
-    <br />
-
-    <b>Founder: </b>{{ event.user }}
-    <br />
-    {{ event.description }}<br />
-
-    <a href="{{ path('main_api_create_task', {'event_id': event.id}) }}">Create task</a><br />
+            <a href="{{ path('main_api_create_task', {'event_id': event.id}) }}">Create task</a><br />
 
 
 
-    {{ event.eventDate|date('Y-m-d') }}<br />
-    <a href="{{ path('main_api_add_participant', {'event_id': event.id}) }}">Add participant</a><br />
-    {% for participant in event.participans %}
+            {{ event.eventDate|date('Y-m-d') }}<br />
+            <a href="{{ path('main_api_add_participant', {'event_id': event.id}) }}">Add participant</a><br />
+            {% for participant in event.participans %}
 
-        {{ participant.userUnder }}
+                {{ participant.userUnder }}
 
 
-    {% endfor %}
-{% endfor %}
+            {% endfor %}
+        {% endfor %}
 
-<br/><br/>
-<b>Notification</b><br/>
-    {% for notification in notifications %}
-        <div class="notification" id="notification{{ notification.id }}">
-            {{ notification.title }}<br/>
-            <button class="agree"
-                    onclick="confirmNotification({{ notification.id }}, true)">Agree
-            </button>
-            <button class="disagree"
-                    onclick="confirmNotification({{ notification.id }}, false)">Disgree
-            </button>
+        <br/><br/>
+        <b>Notification</b><br/>
+        {% for notification in notifications %}
+            <div class="notification" id="notification{{ notification.id }}">
+                {{ notification.title }}<br/>
+                <button class="agree"
+                        onclick="confirmNotification({{ notification.id }}, true)">Agree
+                </button>
+                <button class="disagree"
+                        onclick="confirmNotification({{ notification.id }}, false)">Disgree
+                </button>
 
-        </div>
+            </div>
 
-    {% endfor %}
+        {% endfor %}
+
+    </div>
 
 {% endblock %}
