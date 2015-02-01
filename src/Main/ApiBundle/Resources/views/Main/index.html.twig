@@ -32,9 +32,9 @@
             {{ event.eventDate|date('Y-m-d') }}<br />
             <a href="{{ path('main_api_add_participant', {'event_id': event.id}) }}">Add participant</a><br />
             {% for participant in event.participans %}
-
-                {{ participant.userUnder }}
-
+                {% if participant.isActive == true %}
+                    {{ participant.userUnder }}
+                {% endif %}
 
             {% endfor %}
         {% endfor %}
