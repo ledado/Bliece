@@ -1,0 +1,13 @@
+{% extends 'MainApiBundle::layout.html.twig' %}
+{% block content %}
+    {% block header %}{{ parent() }}{% endblock %}
+    {% if userProfile == null %}
+        User not found.
+    {% else %}
+        {{ userProfile }}
+
+        
+
+    {% endif %}
+
+{% endblock %}
