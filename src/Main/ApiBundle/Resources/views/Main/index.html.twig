@@ -54,7 +54,14 @@
             </div>
 
         {% endfor %}
+        <br/>
+        <br/>
+        <br/>
+        <b>Connected people</b><br/>
+        {% for userConnect in userConnections %}
+            {{ userConnect.connect.user }}<br/>
 
+        {% endfor %}
     </div>
 
 {% endblock %}

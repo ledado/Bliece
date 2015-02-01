@@ -20,14 +20,16 @@ class MainController extends Controller {
         $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(
             array('user' => $user->getId(), 'isNew' => true)
         );
-
-
+        $userConnections = $em->getRepository('MainApiBundle:UserConnect')->findBy(
+            array('user' => $user)
+        );
 
 
         return $this->render('MainApiBundle:Main:index.html.twig', array(
             'events' => $events,
             'user' => $user,
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'userConnections' => $userConnections
             ));
     }
 } 
