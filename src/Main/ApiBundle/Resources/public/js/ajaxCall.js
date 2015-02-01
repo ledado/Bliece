@@ -47,10 +47,13 @@ function sendConnectRequest(userId){
 
         },
         beforeSend: function(){
+            $(".sendConnect").remove()
+            $("#connect-loader").css('display','block')
 
         },
         complete: function(){
-
+            $("#connect-loader").remove()
+            $(".connect-box").append('<b>Request has been send</b>')
         }
 
     });

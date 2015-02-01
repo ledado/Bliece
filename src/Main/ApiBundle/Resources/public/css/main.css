@@ -39,7 +39,7 @@ body{
 
 }
 /* end */
-/* content */
+/* main content */
 #content{
     width:70%;
     height:100%;
@@ -47,5 +47,9 @@ body{
 
 }
 
+
+/* end */
+
+/* user view */
 
 /* end */
