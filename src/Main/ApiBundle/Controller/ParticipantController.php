@@ -59,17 +59,32 @@ class ParticipantController extends Controller {
         $error = "";
 
         if ($form->isValid()) {
-            $data = $form->getData();
 
-            $notification = $this->get('notification_service')->createNotification($data['usersUnder'],2,$event_id,$user->getId());
+            $requestData = $request->get('form');
+            $a = 1;
+            for($i = 1; $i == $a; $i++) //pridavanie checknutych userov
+                if(!empty($requestData[$i])){
 
-            $participant = new Participant();
-            $participant->setEvent($event);
-            $participant->setUser($userId);
-            $participant->setUserUnder($data['usersUnder']);
-            $participant->setIsActive(false);
-            $em->persist($participant);
-            $em->flush();
+                    $toUser = $em->getRepository('MainApiBundle:User')->findOneById($requestData[$i]);
+                    $notification = $this->get('notification_service')->createNotification($toUser,2,$event_id,$user->getId());
+
+                    $participant = new Participant();
+                    $participant->setEvent($event);
+                    $participant->setUser($userId);
+                    $participant->setUserUnder($toUser);
+                    $participant->setIsActive(false);
+                    $em->persist($participant);
+                    $em->flush();
+
+
+
+
+                    $a++;
+                }else{
+                    $a--;
+                }
+
+
 
             $error = 'Participant was added';
         }
