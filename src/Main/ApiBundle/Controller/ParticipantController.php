@@ -61,8 +61,8 @@ class ParticipantController extends Controller {
         if ($form->isValid()) {
 
             $requestData = $request->get('form');
-            $a = 1;
-            for($i = 1; $i == $a; $i++) //pridavanie checknutych userov
+            $a = 0;
+            for($i = 0; $i == $a; $i++) //pridavanie checknutych userov
                 if(!empty($requestData[$i])){
 
                     $toUser = $em->getRepository('MainApiBundle:User')->findOneById($requestData[$i]);
