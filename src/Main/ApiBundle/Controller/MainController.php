@@ -30,6 +30,27 @@ class MainController extends Controller {
             'user' => $user,
             'notifications' => $notifications,
             'userConnections' => $userConnections
+        ));
+    }
+
+    public function dashboardAction(){
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $em = $this->get('doctrine')->getManager();
+        $events = $em->getRepository('MainApiBundle:Event')->findByUser($user->getId());
+        $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(
+            array('user' => $user->getId(), 'isNew' => true)
+        );
+        $userConnections = $em->getRepository('MainApiBundle:UserConnect')->findBy(
+            array('user' => $user)
+        );
+
+
+        return $this->render('MainApiBundle:Main:dashboard.html.twig', array(
+            'events' => $events,
+            'user' => $user,
+            'notifications' => $notifications,
+            'userConnections' => $userConnections
             ));
     }
 } 

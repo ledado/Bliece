@@ -2,75 +2,26 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script>
-        var ajaxLink = '{{ path('main_api_notification_ajaxCall') }}';
-    </script>
-
-
 {% endblock %}
 
 {% block content %}
     {% block header %}{{ parent() }}{% endblock %}
 
     <div id="content">
-        <b>My events</b><br/>
-        {% for event in events %}
-            <br /><br /><br />
-            <a href="{{ path('main_api_event', {'eventName': event.name}) }}">
-                {{ event.name }}
-            </a>
-            <br />
+        <div id="back-notifications">
 
-            <b>Founder: </b>{{ event.user }}
-            <br />
-            {{ event.description }}<br />
+        </div>
+        <div id="event-box">
 
-            <a href="{{ path('main_api_create_task', {'event_id': event.id}) }}">Create task</a><br />
+        </div>
 
 
 
-            {{ event.eventDate|date('Y-m-d') }}<br />
-            <a href="{{ path('main_api_add_participant', {'event_id': event.id}) }}">Add participant</a><br />
-            {% for participant in event.participans %}
-                {% if participant.isActive == true %}
-                    {{ participant.userUnder }}
-                {% endif %}
-
-            {% endfor %}
-        {% endfor %}
-
-        <br/><br/>
-        <b>Notification</b><br/>
-        {% for notification in notifications %}
-            <div class="notification" id="notification{{ notification.id }}">
-                {% if notification.type == 1 %}
-
-                {% elseif notification.type == 2 %}
-                <a href="{{ path('main_api_user', {'userId': notification.eventUserNotification.user.id}) }}">{{ notification.eventUserNotification.user }}</a> want you as participant in <a href="{{ path('main_api_event', {'eventName': notification.eventUserNotification.event}) }}">{{ notification.eventUserNotification.event }}</a>
-                    <br/>
-                    <button class="agree"
-                            onclick="confirmNotification({{ notification.id }}, true)">Agree
-                    </button>
-                    <button class="disagree"
-                            onclick="confirmNotification({{ notification.id }}, false)">Disgree
-                    </button>
-                {% elseif notification.type == 3 %}
-
-                {% endif %}
 
 
-            </div>
 
-        {% endfor %}
-        <br/>
-        <br/>
-        <br/>
-        <b>Connected people</b><br/>
-        {% for userConnect in userConnections %}
-            {% if userConnect.connect.isActive == true %}
-                {{ userConnect.connect.user }}<br/>
-            {% endif %}
-        {% endfor %}
+    <div id="shadow-box" style="display: none">
+        <div class="participant-area"></div>
     </div>
 
 {% endblock %}

@@ -1,10 +1,10 @@
 main_api_homepage:
     path:     /
-    defaults: { _controller: MainApiBundle:Security:login }
+    defaults: { _controller: MainApiBundle:Main:index }
 
 main_api_dashboard:
     path:     /dashboard
-    defaults: { _controller: MainApiBundle:Main:index }
+    defaults: { _controller: MainApiBundle:Main:dashboard }
 
 main_api_registration:
     path:     /registration
