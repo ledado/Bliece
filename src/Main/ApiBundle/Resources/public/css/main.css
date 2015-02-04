@@ -69,9 +69,16 @@ body{
 }
 /* end */
 
+#back-notifications{
+    width:50%;
+    float:left;
+    height:600px;
+    background:silver;
+}
 
-
-
-/* user view */
-
-/* end */
+#event-box{
+    width:30%;
+    float:right;
+    height:600px;
+    background:#E6E6E6;
+}

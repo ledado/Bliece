@@ -10,9 +10,28 @@
     <div id="content">
         <div id="back-notifications">
 
+            {% for notification in notifications %}
+                <div class="notification" id="notification{{ notification.id }}">
+                    {{ notification.title }}
+                </div>
+
+            {% endfor %}
         </div>
         <div id="event-box">
+            <div class="my-event">
+                My Event <br/>
 
+                {% for event in events %}
+                    <a href="{{ path('main_api_event', { 'eventName': event.name }) }}">{{ event.name }}</a> <br/>
+                {% endfor %}
+                <br/>
+            </div>
+            <div class="participant-event">
+                As participant in events<br/>
+                {% for event in participantEvents %}
+                    <a href="{{ path('main_api_event', { 'eventName': event.name }) }}">{{ event.name }}</a> <br/>
+                {% endfor %}
+            </div>
         </div>
 
 

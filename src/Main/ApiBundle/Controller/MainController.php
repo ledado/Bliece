@@ -17,9 +17,16 @@ class MainController extends Controller {
 
         $em = $this->get('doctrine')->getManager();
         $events = $em->getRepository('MainApiBundle:Event')->findByUser($user->getId());
-        $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(
-            array('user' => $user->getId(), 'isNew' => true)
+        $notifications = $em->getRepository('MainApiBundle:Notification')->getBackNotification($user->getId());
+        $asParticipants = $em->getRepository('MainApiBundle:Participant')->findBy(
+            array( 'userUnder' => $user->getId())
         );
+
+        $participantEvents = array();
+        foreach($asParticipants as $asParticipant){
+            $participantEvents[] = $asParticipant->getEvent(); //eventy na ktorych som ako participant
+        }
+
         $userConnections = $em->getRepository('MainApiBundle:UserConnect')->findBy(
             array('user' => $user)
         );
@@ -29,7 +36,8 @@ class MainController extends Controller {
             'events' => $events,
             'user' => $user,
             'notifications' => $notifications,
-            'userConnections' => $userConnections
+            'userConnections' => $userConnections,
+            'participantEvents' => $participantEvents
         ));
     }
 

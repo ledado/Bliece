@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class NotificationRepository extends EntityRepository
 {
+    public function getBackNotification($userId){
+        return $this->getEntityManager()
+            ->createQuery('SELECT n FROM MainApiBundle:Notification n WHERE n.type > 9 AND n.user = :userId ORDER BY n.date DESC')
+            ->setParameter('userId', $userId)
+            ->getArrayResult();
+    }
+
+
 }
