@@ -13,6 +13,7 @@ use Main\ApiBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Main\ApiBundle\Entity\Participant;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;
 
@@ -95,6 +96,42 @@ class ParticipantController extends Controller {
             'form' => $form->createView(),
             'error' => $error,
         ));
+    }
+
+    public function getAvailableUser(Request $request){
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->get('doctrine')->getManager();
+
+        $eventId = $request->query->get('eventId');
+        $event = $em->getRepository('MainApiBundle:Event')->findOneById($eventId);
+        $userConnects = $em->getRepository('MainApiBundle:UserConnect')->findByUser($user);
+
+        $availableUsers = array();
+        foreach($userConnects as $key => $userConnect){
+            if($userConnect->getConnect()->getIsActive() == true){
+                $isPraticipant = false; //aby v pripade ze uz je medzi participantmi aby ho nezobrazilo
+                foreach($event->getParticipans() as $participant){
+                    if($participant->getUserUnder()->getId() == $userConnect->getConnect()->getUser()->getId()){
+                        $isPraticipant = true;
+                    }
+                }
+
+                if($isPraticipant == false){
+                    $availableUsers[] = $userConnect->getConnect()->getUser();
+                }
+
+
+            }
+
+        }
+
+        $response = array(
+            "code" => 100,
+            "availableUsers" => $availableUsers
+
+        );
+        return new Response(json_encode($response));
+
     }
 
 } 

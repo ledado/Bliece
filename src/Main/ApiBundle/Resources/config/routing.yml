@@ -37,3 +37,7 @@ main_api_connect_ajaxCall:
 main_api_user:
     path:     /user/{userId}
     defaults: { _controller: MainApiBundle:User:view }
+
+get_available_user:
+    path:     /get-available-user
+    defaults: { _controller: MainApiBundle:Participant:getAvailableUser }

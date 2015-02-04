@@ -58,3 +58,29 @@ function sendConnectRequest(userId){
 
     });
 }
+function getAvailableUser(eventId){
+    $.ajax({
+        url: availableUserLink,
+        data: {
+            eventId: eventId
+        },
+        dataType: 'json',
+
+        success: function(response){
+
+            if(response.code == 100){
+
+
+            }
+
+        },
+        beforeSend: function(){
+
+
+        },
+        complete: function(){
+
+        }
+
+    });
+}
