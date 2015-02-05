@@ -98,7 +98,7 @@ class ParticipantController extends Controller {
         ));
     }
 
-    public function getAvailableUser(Request $request){
+    public function getAvailableUserAction(Request $request){
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
 
@@ -107,8 +107,9 @@ class ParticipantController extends Controller {
         $userConnects = $em->getRepository('MainApiBundle:UserConnect')->findByUser($user);
 
         $availableUsers = array();
-        foreach($userConnects as $key => $userConnect){
+        foreach($userConnects as $userConnect){
             if($userConnect->getConnect()->getIsActive() == true){
+
                 $isPraticipant = false; //aby v pripade ze uz je medzi participantmi aby ho nezobrazilo
                 foreach($event->getParticipans() as $participant){
                     if($participant->getUserUnder()->getId() == $userConnect->getConnect()->getUser()->getId()){
@@ -127,7 +128,7 @@ class ParticipantController extends Controller {
 
         $response = array(
             "code" => 100,
-            "availableUsers" => $availableUsers
+            "availableUsers" => $availableUsers[0]
 
         );
         return new Response(json_encode($response));

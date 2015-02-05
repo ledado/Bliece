@@ -15,20 +15,9 @@ class Participant
     private $isActive;
 
     /**
-     * @var \Main\ApiBundle\Entity\Event
-     */
-    private $event;
-
-    /**
      * @var \Main\ApiBundle\Entity\User
      */
     private $user;
-
-    /**
-     * @var \Main\ApiBundle\Entity\User
-     */
-    private $userUnder;
-
 
     /**
      * Set isActive
@@ -54,29 +43,6 @@ class Participant
     }
 
     /**
-     * Set event
-     *
-     * @param \Main\ApiBundle\Entity\Event $event
-     * @return Participant
-     */
-    public function setEvent(\Main\ApiBundle\Entity\Event $event)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * Get event
-     *
-     * @return \Main\ApiBundle\Entity\Event 
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    /**
      * Set user
      *
      * @param \Main\ApiBundle\Entity\User $user
@@ -99,26 +65,44 @@ class Participant
         return $this->user;
     }
 
+    private $id;
+
     /**
-     * Set userUnder
+     * @var \Main\ApiBundle\Entity\EventUserParticipant
+     */
+    private $eventUserParticipant;
+
+
+    /**
+     * Get id
      *
-     * @param \Main\ApiBundle\Entity\User $userUnder
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set eventUserParticipant
+     *
+     * @param \Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipant
      * @return Participant
      */
-    public function setUserUnder(\Main\ApiBundle\Entity\User $userUnder)
+    public function setEventUserParticipant(\Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipant = null)
     {
-        $this->userUnder = $userUnder;
+        $this->eventUserParticipant = $eventUserParticipant;
 
         return $this;
     }
 
     /**
-     * Get userUnder
+     * Get eventUserParticipant
      *
-     * @return \Main\ApiBundle\Entity\User 
+     * @return \Main\ApiBundle\Entity\EventUserParticipant 
      */
-    public function getUserUnder()
+    public function getEventUserParticipant()
     {
-        return $this->userUnder;
+        return $this->eventUserParticipant;
     }
 }

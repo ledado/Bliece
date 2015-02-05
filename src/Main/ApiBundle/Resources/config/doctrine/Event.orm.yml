@@ -43,13 +43,13 @@ Main\ApiBundle\Entity\Event:
                 referencedColumnName: id
             orphanRemoval: true
     oneToMany:
-        participans:
-            targetEntity: Participant
+        eventUserNotifications:
+            targetEntity: EventUserNotification
             mappedBy: event
             cascade: [persist]
             orphanRemoval: true
-        eventUserNotifications:
-            targetEntity: EventUserNotification
+        eventUserParticipans:
+            targetEntity: EventUserParticipant
             mappedBy: event
             cascade: [persist]
             orphanRemoval: true

@@ -60,11 +60,6 @@ Main\ApiBundle\Entity\User:
             mappedBy: user
             cascade: [persist]
             orphanRemoval: true
-        participans:
-            targetEntity: Participant
-            mappedBy: userUnder
-            cascade: [persist]
-            orphanRemoval: true
         eventUserNotifications:
             targetEntity: EventUserNotification
             mappedBy: user
@@ -82,6 +77,11 @@ Main\ApiBundle\Entity\User:
             orphanRemoval: true
         connections:
             targetEntity: Connect
+            mappedBy: user
+            cascade: [persist]
+            orphanRemoval: true
+        eventUserParticipans:
+            targetEntity: EventUserParticipant
             mappedBy: user
             cascade: [persist]
             orphanRemoval: true

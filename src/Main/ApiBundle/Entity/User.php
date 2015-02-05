@@ -490,4 +490,42 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->userConnections;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $eventUserParticipans;
+
+
+    /**
+     * Add eventUserParticipans
+     *
+     * @param \Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans
+     * @return User
+     */
+    public function addEventUserParticipan(\Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans)
+    {
+        $this->eventUserParticipans[] = $eventUserParticipans;
+
+        return $this;
+    }
+
+    /**
+     * Remove eventUserParticipans
+     *
+     * @param \Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans
+     */
+    public function removeEventUserParticipan(\Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans)
+    {
+        $this->eventUserParticipans->removeElement($eventUserParticipans);
+    }
+
+    /**
+     * Get eventUserParticipans
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventUserParticipans()
+    {
+        return $this->eventUserParticipans;
+    }
 }

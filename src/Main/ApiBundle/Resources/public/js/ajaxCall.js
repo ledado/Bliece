@@ -69,8 +69,10 @@ function getAvailableUser(eventId){
         success: function(response){
 
             if(response.code == 100){
-
-
+//                response.availableUsers.forEach(function(user) {
+//                    alert(user)
+//                });
+                alert(response.availableUsers)
             }
 
         },
@@ -79,8 +81,11 @@ function getAvailableUser(eventId){
 
         },
         complete: function(){
-
+            $("#shadow-box").css('display', 'block')
         }
 
     });
+}
+function cloaseAlert(){
+    $("#shadow-box").css('display', 'none')
 }

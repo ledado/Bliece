@@ -1,0 +1,26 @@
+Main\ApiBundle\Entity\EventUserParticipant:
+    type: entity
+    repositoryClass: Main\ApiBundle\Repository\EventUserParticipantRepository
+    table: event_user_participant
+    id:
+        event:
+          associationKey: true
+        user:
+          associationKey: true
+        participant:
+          associationKey: true
+    fields: ~
+
+    manyToOne:
+        event:
+            targetEntity: Event
+            inversedBy: eventUserParticipans
+        user:
+            targetEntity: User
+            inversedBy: eventUserParticipans
+    oneToOne:
+        participant:
+            targetEntity: Participant
+            inversedBy: eventUserParticipant
+
+    lifecycleCallbacks: {  }

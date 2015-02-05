@@ -160,40 +160,6 @@ class Event
     {
         return $this->eventDate;
     }
-
-    /**
-     * Add participans
-     *
-     * @param \Main\ApiBundle\Entity\Participant $participans
-     * @return Event
-     */
-    public function addParticipan(\Main\ApiBundle\Entity\Participant $participans)
-    {
-        $this->participans[] = $participans;
-
-        return $this;
-    }
-
-    /**
-     * Remove participans
-     *
-     * @param \Main\ApiBundle\Entity\Participant $participans
-     */
-    public function removeParticipan(\Main\ApiBundle\Entity\Participant $participans)
-    {
-        $this->participans->removeElement($participans);
-    }
-
-    /**
-     * Get participans
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getParticipans()
-    {
-        return $this->participans;
-    }
-
     /**
      * Add eventUserNotifications
      *
@@ -251,5 +217,43 @@ class Event
     }
     public function __toString(){
         return $this->name;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $eventUserParticipans;
+
+
+    /**
+     * Add eventUserParticipans
+     *
+     * @param \Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans
+     * @return Event
+     */
+    public function addEventUserParticipan(\Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans)
+    {
+        $this->eventUserParticipans[] = $eventUserParticipans;
+
+        return $this;
+    }
+
+    /**
+     * Remove eventUserParticipans
+     *
+     * @param \Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans
+     */
+    public function removeEventUserParticipan(\Main\ApiBundle\Entity\EventUserParticipant $eventUserParticipans)
+    {
+        $this->eventUserParticipans->removeElement($eventUserParticipans);
+    }
+
+    /**
+     * Get eventUserParticipans
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventUserParticipans()
+    {
+        return $this->eventUserParticipans;
     }
 }

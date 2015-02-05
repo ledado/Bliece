@@ -3,12 +3,14 @@ Main\ApiBundle\Entity\Participant:
     repositoryClass: Main\ApiBundle\Repository\ParticipantRepository
     table: participant
     id:
-        event:
-          associationKey: true
-        user:
-          associationKey: true
-        userUnder:
-          associationKey: true
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
     fields:
         isActive:
             type: boolean
@@ -16,15 +18,18 @@ Main\ApiBundle\Entity\Participant:
             comment: ''
             default: '0'
     manyToOne:
-        event:
-            targetEntity: Event
-            inversedBy: participans
         user:
             targetEntity: User
+            cascade: [persist]
             inversedBy: participans
-        userUnder:
-            targetEntity: User
-            inversedBy: participans
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            orphanRemoval: true
+    oneToOne:
+        eventUserParticipant:
+            targetEntity: EventUserParticipant
+            mappedBy: participant
 
 
     lifecycleCallbacks: {  }
