@@ -78,7 +78,7 @@ function getAvailableUser(eventId){
                     if(response.isInvite[index] == 1){
                         $(".participant-area").append('<div class="available-user">'+userName[index]+'<div class="invited" style="float:right"><b>Is invited</b></div></div>')
                     }else{
-                        $(".participant-area").append('<div class="available-user">'+userName[index]+'<button class="invite" style="float:right">Invite</button></div>')
+                        $(".participant-area").append('<div class="available-user">'+userName[index]+'<button class="invite u'+userId[index]+'" style="float:right" onclick="addParticipant('+userId[index]+', '+eventId+')">Invite</button></div>')
                     }
                 }
 
@@ -95,6 +95,38 @@ function getAvailableUser(eventId){
 
     });
 }
+function addParticipant(participantId, eventId){
+    $.ajax({
+        url: addParticipantLink,
+        data: {
+            participantId: participantId,
+            eventId: eventId
+        },
+        dataType: 'json',
+
+        success: function(response){
+
+            if(response.code == 100){
+
+
+            }
+
+        },
+        beforeSend: function(){
+           $(".u"+participantId).replaceWith('<div style="float:right"><b>Is invited</b></div>')
+
+        },
+        complete: function(){
+
+        }
+
+    });
+}
+
+
+
+
+
 function cloaseAlert(){
     $("#shadow-box").css('display', 'none')
 }

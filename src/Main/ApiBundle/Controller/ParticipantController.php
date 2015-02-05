@@ -9,6 +9,7 @@
 namespace Main\ApiBundle\Controller;
 
 use Main\ApiBundle\Entity\EventUserNotification;
+use Main\ApiBundle\Entity\EventUserParticipant;
 use Main\ApiBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,84 +19,37 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;
 
 class ParticipantController extends Controller {
-    public function addParticipantAction(Request $request, $event_id){
+    public function addParticipantAction(Request $request){
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
 
-        $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
-        $event = $em->getRepository('MainApiBundle:Event')->findOneById($event_id);
+        $participantId = $request->query->get('participantId');
+        $participantUser = $em->getRepository('MainApiBundle:User')->findOneById($participantId);
 
-        $userConnects = $em->getRepository('MainApiBundle:UserConnect')->findByUser($user);
-
-        $form = $this->createFormBuilder()
-            ->getForm();
-
-
-        foreach($userConnects as $key => $userConnect){
-            if($userConnect->getConnect()->getIsActive() == true){
-                $isPraticipant = false; //aby v pripade ze uz je medzi participantmi aby ho nezobrazilo
-                foreach($event->getParticipans() as $participant){
-                    if($participant->getUserUnder()->getId() == $userConnect->getConnect()->getUser()->getId()){
-                       $isPraticipant = true;
-                    }
-                }
-
-                if($isPraticipant == false){
-                    $form->add($key,'checkbox', array(
-                        'label'     => $userConnect->getConnect()->getUser(),
-                        'required'  => false,
-                        'value'     => $userConnect->getConnect()->getUser()->getId(),
-                    ));
-                }
+        $eventId = $request->query->get('eventId');
+        $userEntity = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
+        $event = $em->getRepository('MainApiBundle:Event')->findOneById($eventId);
 
 
-            }
+        $participant = new Participant();
+        $participant->setUser($participantUser);
+        $participant->setIsActive(false);
+        $em->persist($participant);
+        $em->flush();
 
-        }
+        $eventUserParticipant = new EventUserParticipant();
+        $eventUserParticipant->setParticipant($participant);
+        $eventUserParticipant->setUser($userEntity);
+        $eventUserParticipant->setEvent($event);
+        $em->persist($eventUserParticipant);
+        $em->flush();
 
-        $form->add('send', 'submit', array('label' => 'Send request'));
-
-        $form->handleRequest($request);
-
-        $error = "";
-
-        if ($form->isValid()) {
-
-            $requestData = $request->get('form');
-            $a = 0;
-            for($i = 0; $i == $a; $i++) //pridavanie checknutych userov
-                if(!empty($requestData[$i])){
-
-                    $toUser = $em->getRepository('MainApiBundle:User')->findOneById($requestData[$i]);
-                    $notification = $this->get('notification_service')->createNotification($toUser,2,$event_id,$user->getId());
-
-                    $participant = new Participant();
-                    $participant->setEvent($event);
-                    $participant->setUser($userId);
-                    $participant->setUserUnder($toUser);
-                    $participant->setIsActive(false);
-                    $em->persist($participant);
-                    $em->flush();
+        $response = array(
+            "code" => 100,
+        );
+        return new Response(json_encode($response));
 
 
-
-
-                    $a++;
-                }else{
-                    $a--;
-                }
-
-
-
-            $error = 'Participant was added';
-        }
-
-
-
-        return $this->render('MainApiBundle:Event:create_event.html.twig', array(
-            'form' => $form->createView(),
-            'error' => $error,
-        ));
     }
 
     public function getAvailableUserAction(Request $request){
