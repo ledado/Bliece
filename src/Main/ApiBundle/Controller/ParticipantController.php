@@ -106,20 +106,34 @@ class ParticipantController extends Controller {
         $event = $em->getRepository('MainApiBundle:Event')->findOneById($eventId);
         $userConnects = $em->getRepository('MainApiBundle:UserConnect')->findByUser($user);
 
-        $availableUsers = array();
+        $availableUsersId = array();
+        $availableUsersName = array();
+        $isInvite = array();
         foreach($userConnects as $userConnect){
             if($userConnect->getConnect()->getIsActive() == true){
 
-                $isPraticipant = false; //aby v pripade ze uz je medzi participantmi aby ho nezobrazilo
-                foreach($event->getParticipans() as $participant){
-                    if($participant->getUserUnder()->getId() == $userConnect->getConnect()->getUser()->getId()){
-                        $isPraticipant = true;
+                $isInvited = false; //identifikator ci uz bol pozvany
+                $isParticipant = false; //identifikator ci patri medzi aktivnych participantov
+                foreach($event->getEventUserParticipans() as $eventUserParticipant){
+
+                    if($eventUserParticipant->getParticipant()->getUser()->getId() == $userConnect->getConnect()->getUser()->getId()){
+
+                        if($eventUserParticipant->getParticipant()->getIsActive() == 0){
+                            $isInvited = true;
+                        }else{
+                            $isParticipant = true;
+                        }
+
+
                     }
                 }
-
-                if($isPraticipant == false){
-                    $availableUsers[] = $userConnect->getConnect()->getUser();
+                if(!$isParticipant){ //aby vratilo iba neaktivnych participantov
+                    $availableUsersName[] = $userConnect->getConnect()->getUser()->getUsername();
+                    $availableUsersId[] = $userConnect->getConnect()->getUser()->getId();
+                    $isInvite[] = $isInvited;
                 }
+
+
 
 
             }
@@ -128,7 +142,9 @@ class ParticipantController extends Controller {
 
         $response = array(
             "code" => 100,
-            "availableUsers" => $availableUsers[0]
+            "availableUsersId" => $availableUsersId,
+            "availableUsersName" => $availableUsersName,
+            "isInvite" => $isInvite
 
         );
         return new Response(json_encode($response));

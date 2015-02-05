@@ -69,15 +69,24 @@ function getAvailableUser(eventId){
         success: function(response){
 
             if(response.code == 100){
-//                response.availableUsers.forEach(function(user) {
-//                    alert(user)
-//                });
-                alert(response.availableUsers)
+                userId = response.availableUsersId
+                userName = response.availableUsersName
+
+                len = userId.length;
+                for (index = 0;  index < len; ++index) {
+
+                    if(response.isInvite[index] == 1){
+                        $(".participant-area").append('<div class="available-user">'+userName[index]+'<div class="invited" style="float:right"><b>Is invited</b></div></div>')
+                    }else{
+                        $(".participant-area").append('<div class="available-user">'+userName[index]+'<button class="invite" style="float:right">Invite</button></div>')
+                    }
+                }
+
             }
 
         },
         beforeSend: function(){
-
+            $(".available-user").remove()
 
         },
         complete: function(){

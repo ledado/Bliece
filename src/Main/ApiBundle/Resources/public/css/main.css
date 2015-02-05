@@ -67,6 +67,11 @@ body{
     background-color: #cccccc;
     border-radius: 4px;
 }
+.available-user{
+     width:100%;
+     padding:10px 5px 10px 5px;
+     border-bottom:1px solid black;
+ }
 /* end */
 
 #back-notifications{
@@ -82,3 +87,4 @@ body{
     height:600px;
     background:#E6E6E6;
 }
+
