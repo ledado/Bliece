@@ -73,7 +73,9 @@ body{
      border-bottom:1px solid black;
  }
 /* end */
-
+.notification{
+    padding:10px 10px 10px 10px;
+}
 #back-notifications{
     width:50%;
     float:left;

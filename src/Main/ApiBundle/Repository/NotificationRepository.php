@@ -16,6 +16,6 @@ class NotificationRepository extends EntityRepository
         return $this->getEntityManager()
             ->createQuery('SELECT n FROM MainApiBundle:Notification n WHERE n.type > 9 AND n.user = :userId ORDER BY n.date DESC')
             ->setParameter('userId', $userId)
-            ->getArrayResult();
+            ->execute();
     }
 }
