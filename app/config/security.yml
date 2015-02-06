@@ -49,6 +49,7 @@ security:
         - { path: ^/event/, role: ROLE_USER }
         - { path: ^/add-participant/, role: ROLE_USER }
         - { path: ^/user/, role: ROLE_USER }
+        - { path: ^/, role: ROLE_USER }
     encoders:
         "Main\ApiBundle\Entity\User": sha1
 

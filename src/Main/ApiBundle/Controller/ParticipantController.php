@@ -44,6 +44,8 @@ class ParticipantController extends Controller {
         $em->persist($eventUserParticipant);
         $em->flush();
 
+        $this->get('notification_service')->createEventUserNotification($participantUser,2,$eventId,$user->getId());
+
         $response = array(
             "code" => 100,
         );

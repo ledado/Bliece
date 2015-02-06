@@ -19,12 +19,12 @@ class MainController extends Controller {
         $events = $em->getRepository('MainApiBundle:Event')->findByUser($user->getId());
         $notifications = $em->getRepository('MainApiBundle:Notification')->getBackNotification($user->getId());
         $asParticipants = $em->getRepository('MainApiBundle:Participant')->findBy(
-            array( 'userUnder' => $user->getId())
+            array( 'user' => $user->getId())
         );
 
         $participantEvents = array();
         foreach($asParticipants as $asParticipant){
-            $participantEvents[] = $asParticipant->getEvent(); //eventy na ktorych som ako participant
+            $participantEvents[] = $asParticipant->getEventUserParticipant()->getEvent(); //eventy na ktorych som ako participant
         }
 
         $userConnections = $em->getRepository('MainApiBundle:UserConnect')->findBy(

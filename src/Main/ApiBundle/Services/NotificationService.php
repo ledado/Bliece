@@ -21,14 +21,14 @@ class NotificationService {
         $this->em = $em;
 
     }
-    function createNotification($toUser,$type,$event_id,$userId){
+    function createEventUserNotification($toUser,$type,$event_id,$userId){
         $user = $this->em->getRepository('MainApiBundle:User')->findOneById($userId);
         $event = $this->em->getRepository('MainApiBundle:Event')->findOneById($event_id);
 
         $notification = new Notification();
         $notification->setType($type);
         $notification->setUser($toUser); //pre koho je urcena
-        $notification->setTitle('asd');
+        $notification->setTitle('title');
         $notification->setDate(new \DateTime('now'));
         $notification->setIsNew(true);
         $this->em->persist($notification);
