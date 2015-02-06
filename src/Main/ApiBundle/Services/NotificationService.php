@@ -44,9 +44,9 @@ class NotificationService {
 
         return null;
     }
-    function createFeedbackNotification($participant,$type,$userId,$title){ //sluzia ako oznamenie o prijatie alebo odmietnuti niecoho
+    function createFeedbackNotification($participant,$type,$eventId,$userId,$title){ //sluzia ako oznamenie o prijatie alebo odmietnuti niecoho
         $user = $this->em->getRepository('MainApiBundle:User')->findOneById($userId);
-        $event = $this->em->getRepository('MainApiBundle:Event')->findOneById(2);
+        $event = $this->em->getRepository('MainApiBundle:Event')->findOneById($eventId);
 
         $notification = new Notification();
         $notification->setType($type);

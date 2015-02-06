@@ -35,11 +35,11 @@ class NotificationController extends Controller {
         if($response == "true"){
             $participant->setIsActive(1);
             $title = 'accepted';
-            $this->get('notification_service')->createFeedbackNotification($participant->getUser(),20,$userId,$title);
+            $this->get('notification_service')->createFeedbackNotification($participant->getUser(),20,$eventId,$userId,$title);
         }else{
             $participant->setIsActive(0);
             $title = 'rejected';
-            $this->get('notification_service')->createFeedbackNotification($participant->getUser(),20,$userId,$title);
+            $this->get('notification_service')->createFeedbackNotification($participant->getUser(),20,$eventId,$userId,$title);
         }
         $em->flush();
 

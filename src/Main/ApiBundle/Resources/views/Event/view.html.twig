@@ -4,8 +4,8 @@
     {% if error == '' %}
         {{ event.name }}<br/>
         {{ event.description }}<br/>
-        {% for participant in event.participans %}
-            {{ participant.userUnder }}<br/>
+        {% for eventUserParticipant in event.eventUserParticipans %}
+            {{ eventUserParticipant.participant.user }}<br/>
         {% endfor %}
     {% else %}
         {{ error }}

@@ -77,7 +77,6 @@ class EventController extends Controller {
             }
         }
 
-
         if($event->getUser()->getId() != $user->getId() && $verification == false){
             throw new \Exception('You do not have access ');
         }
