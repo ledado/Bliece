@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class NotificationController extends Controller {
-    public function ajaxCallAction(Request $request){
+    public function confirmNotificationAction(Request $request){
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->get('doctrine')->getManager();
 
@@ -26,23 +26,22 @@ class NotificationController extends Controller {
 
         $notification->setIsNew(false);
 
-        $participant = $em->getRepository('MainApiBundle:Participant')->findOneBy(
-            array(
-                'event' => $notification->getEventUserNotification()->getEvent(),
-                'user' => $notification->getEventUserNotification()->getUser(),
-                'userUnder' => $notification->getUser()
-            )
-        );
+        $eventId = $notification->getEventUserNotification()->getEvent()->getId();
+        $userId = $notification->getEventUserNotification()->getUser()->getId();
+        $participantId = $notification->getUser()->getId();
+
+        $participant = $em->getRepository('MainApiBundle:Participant')->findParticipant($userId, $eventId, $participantId);
 
         if($response == "true"){
             $participant->setIsActive(1);
+            $title = 'accepted';
+            $this->get('notification_service')->createFeedbackNotification($participant->getUser(),20,$userId,$title);
         }else{
             $participant->setIsActive(0);
+            $title = 'rejected';
+            $this->get('notification_service')->createFeedbackNotification($participant->getUser(),20,$userId,$title);
         }
-
         $em->flush();
-
-
 
         $response = array(
             "code" => 100,

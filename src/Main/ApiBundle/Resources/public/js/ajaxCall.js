@@ -5,7 +5,7 @@
 function confirmNotification(notificationId, response){
 
     $.ajax({
-        url: ajaxLink,
+        url: confirmNotificationLink,
         data: {
             notificationId: notificationId,
             response: response

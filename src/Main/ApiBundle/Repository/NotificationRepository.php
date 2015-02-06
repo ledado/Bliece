@@ -18,6 +18,4 @@ class NotificationRepository extends EntityRepository
             ->setParameter('userId', $userId)
             ->getArrayResult();
     }
-
-
 }
