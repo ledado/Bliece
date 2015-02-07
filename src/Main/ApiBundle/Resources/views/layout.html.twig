@@ -41,9 +41,9 @@
             <a href="{{ path('main_api_create_event') }}">Create event</a>
             <a href="{{ path('logout') }}">Logout</a>
             {% if render(controller('MainApiBundle:Notification:isNewNotification')) == 'true' %}
-                You have new notifications
+                You have new <a href="{{ path('main_api_notifications') }}">notifications</a>
             {% else %}
-                You not have new notifications
+                You not have new <a href="{{ path('main_api_notifications') }}">notifications</a>
             {% endif %}
 
         </div>
