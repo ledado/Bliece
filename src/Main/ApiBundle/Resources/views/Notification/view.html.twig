@@ -1,0 +1,47 @@
+{% extends 'MainApiBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var confirmParticipantNotificationLink = '{{ path('main_api_confirm_participant_notification') }}'
+        var confirmConnectNotificationLink = '{{ path('main_api_confirm_connect_notification') }}'
+    </script>
+
+{% endblock %}
+
+{% block content %}
+    {% block header %}{{ parent() }}{% endblock %}
+
+<div id="content">
+    <b>New notifications</b><br/>
+    {% for notification in notifications %}
+        <div class="notification" id="notification{{ notification.id }}">
+            {% if notification.type == 1 and notification.isNew == 1 %}
+                <a href="{{ path('main_api_user', {'userId': notification.eventUserNotification.user.id}) }}">{{ notification.eventUserNotification.user }}</a> want you add to connect
+                <br/>
+                <button class="agree"
+                        onclick="confirmConnectNotification({{ notification.id }}, true)">Agree
+                </button>
+                <button class="disagree"
+                        onclick="confirmConnectNotification({{ notification.id }}, false)">Disgree
+                </button>
+            {% elseif notification.type == 2 and notification.isNew == 1%}
+                <a href="{{ path('main_api_user', {'userId': notification.eventUserNotification.user.id}) }}">{{ notification.eventUserNotification.user }}</a> want you as participant in <a href="{{ path('main_api_event', {'eventName': notification.eventUserNotification.event}) }}">{{ notification.eventUserNotification.event }}</a>
+                <br/>
+                <button class="agree"
+                        onclick="confirmParticipantNotification({{ notification.id }}, true)">Agree
+                </button>
+                <button class="disagree"
+                        onclick="confirmParticipantNotification({{ notification.id }}, false)">Disgree
+                </button>
+            {% elseif notification.type == 3 and notification.isNew == 1%}
+
+            {% endif %}
+
+
+        </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -33,6 +33,9 @@ main_api_confirm_participant_notification:
 main_api_confirm_connect_notification:
     path:     /confirm-connect-notification
     defaults: { _controller: MainApiBundle:Notification:confirmConnectNotification }
+main_api_notifications:
+    path:     /notifications
+    defaults: { _controller: MainApiBundle:Notification:viewNotifications }
 
 main_api_connect_ajaxCall:
     path:     /connect

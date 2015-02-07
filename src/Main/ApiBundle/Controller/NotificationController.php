@@ -109,4 +109,19 @@ class NotificationController extends Controller {
         }
         return new Response($isNew);
     }
+
+    public function viewNotificationsAction(){
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->get('doctrine')->getManager();
+
+        $notifications = $em->getRepository('MainApiBundle:Notification')->findBy(
+            array('user' => $user->getId(), 'isFeedback' => 0),
+            array('date' => 'DESC')
+        );
+
+        return $this->render('MainApiBundle:Notification:view.html.twig', array(
+            'user' => $user,
+            'notifications' => $notifications
+        ));
+    }
 } 

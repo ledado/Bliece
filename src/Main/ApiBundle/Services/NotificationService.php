@@ -31,6 +31,7 @@ class NotificationService {
         $notification->setTitle('title');
         $notification->setDate(new \DateTime('now'));
         $notification->setIsNew(true);
+        $notification->setIsFeedback(false);
         $this->em->persist($notification);
         $this->em->flush();
 
@@ -54,6 +55,7 @@ class NotificationService {
         $notification->setTitle($title);
         $notification->setDate(new \DateTime('now'));
         $notification->setIsNew(true);
+        $notification->setIsFeedback(true);
         $this->em->persist($notification);
         $this->em->flush();
 
