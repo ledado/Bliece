@@ -2,10 +2,10 @@
  * Created by Lednicky on 14.12.2014.
  */
 
-function confirmNotification(notificationId, response){
+function confirmParticipantNotification(notificationId, response){
 
     $.ajax({
-        url: confirmNotificationLink,
+        url: confirmParticipantNotificationLink,
         data: {
             notificationId: notificationId,
             response: response
@@ -122,7 +122,34 @@ function addParticipant(participantId, eventId){
 
     });
 }
+function confirmConnectNotification(notificationId, response){
 
+    $.ajax({
+        url: confirmConnectNotificationLink,
+        data: {
+            notificationId: notificationId,
+            response: response
+
+        },
+        dataType: 'json',
+
+        success: function(response){
+
+            if(response.code == 100){
+
+
+            }
+
+        },
+        beforeSend: function(){
+            $("#notification"+notificationId).remove();
+        },
+        complete: function(){
+
+        }
+
+    });
+}
 
 
 

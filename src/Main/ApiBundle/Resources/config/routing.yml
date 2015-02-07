@@ -26,9 +26,13 @@ main_api_event:
     path:     /event/{eventName}
     defaults: { _controller: MainApiBundle:Event:getEvent }
 
-main_api_confirm_notification:
-    path:     /confirm-notification
-    defaults: { _controller: MainApiBundle:Notification:confirmNotification }
+main_api_confirm_participant_notification:
+    path:     /confirm-participant-notification
+    defaults: { _controller: MainApiBundle:Notification:confirmParticipantNotification }
+
+main_api_confirm_connect_notification:
+    path:     /confirm-connect-notification
+    defaults: { _controller: MainApiBundle:Notification:confirmConnectNotification }
 
 main_api_connect_ajaxCall:
     path:     /connect

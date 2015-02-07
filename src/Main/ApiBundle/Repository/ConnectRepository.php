@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConnectRepository extends EntityRepository
 {
+    public function findConnect($userId,$connectUserId){
+        return $this->getEntityManager()
+            ->createQuery('SELECT c FROM MainApiBundle:Connect c JOIN c.userConnect e WHERE c.user = :connectUserId AND e.user = :userId')
+            ->setParameter('userId', $userId)
+            ->setParameter('connectUserId', $connectUserId)
+            ->getOneOrNullResult();
+    }
 }

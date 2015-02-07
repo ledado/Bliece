@@ -34,6 +34,7 @@ class ConnectController extends Controller {
         $em->persist($userConnect);
         $em->flush();
 
+        $this->get('notification_service')->createEventUserNotification($toUser,1,2,$user->getId());
         $response = array(
             "code" => 100,
 

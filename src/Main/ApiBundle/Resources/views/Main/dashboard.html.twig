@@ -3,9 +3,10 @@
     {{ parent() }}
 
     <script>
-        var confirmNotificationLink = '{{ path('main_api_confirm_notification') }}'
+        var confirmParticipantNotificationLink = '{{ path('main_api_confirm_participant_notification') }}'
         var availableUserLink = '{{ path('get_available_user') }}'
         var addParticipantLink = '{{ path('main_api_add_participant') }}'
+        var confirmConnectNotificationLink = '{{ path('main_api_confirm_connect_notification') }}'
     </script>
 
 
@@ -48,15 +49,22 @@
         {% for notification in notifications %}
             <div class="notification" id="notification{{ notification.id }}">
                 {% if notification.type == 1 %}
-
+                    <a href="{{ path('main_api_user', {'userId': notification.eventUserNotification.user.id}) }}">{{ notification.eventUserNotification.user }}</a> want you add to connect
+                    <br/>
+                    <button class="agree"
+                            onclick="confirmConnectNotification({{ notification.id }}, true)">Agree
+                    </button>
+                    <button class="disagree"
+                            onclick="confirmConnectNotification({{ notification.id }}, false)">Disgree
+                    </button>
                 {% elseif notification.type == 2 %}
                 <a href="{{ path('main_api_user', {'userId': notification.eventUserNotification.user.id}) }}">{{ notification.eventUserNotification.user }}</a> want you as participant in <a href="{{ path('main_api_event', {'eventName': notification.eventUserNotification.event}) }}">{{ notification.eventUserNotification.event }}</a>
                     <br/>
                     <button class="agree"
-                            onclick="confirmNotification({{ notification.id }}, true)">Agree
+                            onclick="confirmParticipantNotification({{ notification.id }}, true)">Agree
                     </button>
                     <button class="disagree"
-                            onclick="confirmNotification({{ notification.id }}, false)">Disgree
+                            onclick="confirmParticipantNotification({{ notification.id }}, false)">Disgree
                     </button>
                 {% elseif notification.type == 3 %}
 
