@@ -75,7 +75,7 @@ class NotificationController extends Controller {
             $connect = new Connect();
             $connect->setUser($user); //user ktoremu bude odoslane potvrdenie
             $connect->setIsActive(false);
-            $em->persist($connect);
+            $em->persist($user);
             $em->flush();
 
             $userConnect = new UserConnect();
