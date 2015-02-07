@@ -97,4 +97,16 @@ class NotificationController extends Controller {
         );
         return new Response(json_encode($response));
     }
+
+    public function isNewNotificationAction(){
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->get('doctrine')->getManager();
+        $isNewNotification = $em->getRepository('MainApiBundle:Notification')->isNewNotification($user->getId());
+        if(!$isNewNotification){
+            $isNew = 'false';
+        }else{
+            $isNew = 'true';
+        }
+        return new Response($isNew);
+    }
 } 

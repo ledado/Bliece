@@ -38,8 +38,14 @@
             <span class="user-name">
                 {{ user }}
             </span>
-            <a href="{{ path('main_api_create_event') }}">Create event</a><br />
-            <a href="{{ path('logout') }}">Logout</a><br />
+            <a href="{{ path('main_api_create_event') }}">Create event</a>
+            <a href="{{ path('logout') }}">Logout</a>
+            {% if render(controller('MainApiBundle:Notification:isNewNotification')) == 'true' %}
+                You have new notifications
+            {% else %}
+                You not have new notifications
+            {% endif %}
+
         </div>
         </div>
     {% endblock %}

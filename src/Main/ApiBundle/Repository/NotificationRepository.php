@@ -18,4 +18,11 @@ class NotificationRepository extends EntityRepository
             ->setParameter('userId', $userId)
             ->execute();
     }
+    public function isNewNotification($userId){
+        return $this->getEntityManager()
+            ->createQuery('SELECT n FROM MainApiBundle:Notification n WHERE n.isNew = 1 AND n.user = :userId AND n.isFeedback = 0')
+            ->setParameter('userId', $userId)
+            ->getScalarResult();
+    }
+
 }
