@@ -33,6 +33,11 @@ Main\ApiBundle\Entity\Notification:
             nullable: true
             comment: ''
             default: '0'
+        isFeedback:
+            type: boolean
+            nullable: true
+            comment: ''
+            default: '0'
     manyToOne:
         user:
             targetEntity: User

@@ -192,4 +192,32 @@ class Notification
     {
         return $this->user;
     }
+    /**
+     * @var boolean
+     */
+    private $isFeedback;
+
+
+    /**
+     * Set isFeedback
+     *
+     * @param boolean $isFeedback
+     * @return Notification
+     */
+    public function setIsFeedback($isFeedback)
+    {
+        $this->isFeedback = $isFeedback;
+
+        return $this;
+    }
+
+    /**
+     * Get isFeedback
+     *
+     * @return boolean 
+     */
+    public function getIsFeedback()
+    {
+        return $this->isFeedback;
+    }
 }
