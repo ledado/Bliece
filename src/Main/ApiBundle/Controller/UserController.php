@@ -20,8 +20,6 @@ class UserController extends Controller{
         $userConnects = $em->getRepository('MainApiBundle:UserConnect')->findBy(
             array('user' => $user)
         );
-
-//        \Doctrine\Common\Util\Debug::dump($userConnect);
         $isConnect = false;
         foreach($userConnects as $userConnect){
             if($userConnect->getConnect()->getUser()->getId() == $userId){ //v pripade ze zobrazis profil uziv ktoreho mas uz v spojeniach
@@ -30,8 +28,8 @@ class UserController extends Controller{
 
         }
 
-        if(!$userProfile){
-            $userProfile = null;
+        if(!$userProfile || $user->getId() == $userProfile->getId()){
+            return $this->redirect($this->generateUrl('main_api_homepage'));
         }
         return $this->render('MainApiBundle:User:view.html.twig', array(
             'user' => $user,
