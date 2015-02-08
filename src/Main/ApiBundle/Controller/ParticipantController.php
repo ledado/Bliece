@@ -106,5 +106,33 @@ class ParticipantController extends Controller {
         return new Response(json_encode($response));
 
     }
+    public function getAvailableParticipantAction(Request $request){
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->get('doctrine')->getManager();
 
+        $eventId = $request->query->get('eventId');
+        $event = $em->getRepository('MainApiBundle:Event')->findOneById($eventId);
+        $eventUserParticipans = $em->getRepository('MainApiBundle:eventUserParticipant')->findBy(
+            array('user' => $user, 'event' => $event)
+        );
+        $participantName = array();
+        $participantId = array();
+
+
+        foreach($eventUserParticipans as $eventUserParticipant){
+            if($eventUserParticipant->getParticipant()->getIsActive() == 1){
+                $participantName[] = $eventUserParticipant->getParticipant()->getUser()->getUsername();
+                $participantId[] = $eventUserParticipant->getParticipant()->getUser()->getId();
+            }
+        }
+
+
+        $response = array(
+            "code" => 100,
+            "participantName" => $participantName,
+            "participantId" => $participantId
+        );
+        return new Response(json_encode($response));
+
+    }
 } 

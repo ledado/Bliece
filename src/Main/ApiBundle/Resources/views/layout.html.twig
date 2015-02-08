@@ -1,24 +1,27 @@
 {% extends '::base.html.twig' %}
 {% block javascripts %}
-    {% javascripts '@MainApiBundle/Resources/public/js/*' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    {#{% javascripts '@MainApiBundle/Resources/public/js/*' %}#}
+    {#<script type="text/javascript" src="{{ asset_url }}"></script>#}
+    {#{% endjavascripts %}#}
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js" ></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-    {% endjavascripts %}
-    {% javascripts '@MainApiBundle/Resources/public/bootstrap/js/bootstrap.min.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script src="{{ asset('bundles/mainapi/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/mainapi/js/ajaxCall.js') }}"></script>
 
-    {% endjavascripts %}
 {% endblock %}
 
 {% block stylesheets %}
-    {% stylesheets '@MainApiBundle/Resources/public/css/*' filter='cssrewrite' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-    {% stylesheets '@MainApiBundle/Resources/public/bootstrap/css/bootstrap.min.css' filter='cssrewrite' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
+    {#{% stylesheets '@MainApiBundle/Resources/public/css/*' filter='cssrewrite' %}#}
+        {#<link rel="stylesheet" href="{{ asset_url }}" />#}
+    {#{% endstylesheets %}#}
+    {#{% stylesheets '@MainApiBundle/Resources/public/bootstrap/css/bootstrap.min.css' filter='cssrewrite' %}#}
+        {#<link rel="stylesheet" href="{{ asset_url }}" />#}
+    {#{% endstylesheets %}#}
+    <link rel="stylesheet" href="{{ asset('bundles/mainapi/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/mainapi/bootstrap/css/bootstrap.min.css') }}" />
 {% endblock %}
 
 {% block body %}

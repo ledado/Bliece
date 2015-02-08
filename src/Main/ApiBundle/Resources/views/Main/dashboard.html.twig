@@ -3,8 +3,9 @@
     {{ parent() }}
 
     <script>
-        var confirmParticipantNotificationLink = '{{ path('main_api_confirm_participant_notification') }}'
-        var confirmConnectNotificationLink = '{{ path('main_api_confirm_connect_notification') }}'
+        var availableUserLink = '{{ path('get_available_user') }}'
+        var availableParticipantLink = '{{ path('get_available_participant') }}'
+        var addParticipantLink = '{{ path('main_api_add_participant') }}'
     </script>
 
 
@@ -26,10 +27,11 @@
             <br />
             {{ event.description }}<br />
 
-            <a href="{{ path('main_api_create_task', {'event_id': event.id}) }}">Create task</a><br />
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTask" data-eventid="{{ event.id }}">
+                Create task and put users
+            </button>
 
-
-
+            <br/>
             {{ event.eventDate|date('Y-m-d') }}<br />
 
             <button onclick="getAvailableUser({{ event.id }})">Add participant</button><br/>
@@ -38,7 +40,6 @@
                 {% if eventUserParticipant.participant.isActive == true %}
                     {{ eventUserParticipant.participant.user }}
                 {% endif %}
-
             {% endfor %}
         {% endfor %}
 
@@ -58,5 +59,40 @@
 
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createTask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="title" class="task-label">Title:</label>
+                            <input type="text" class="form-control" id="task-title">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="description-label">Message:</label>
+                            <textarea class="form-control" id="task-description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="participant" class="participant-label">Available participans:</label>
+                            <div class="available-participant-group">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

@@ -150,10 +150,54 @@ function confirmConnectNotification(notificationId, response){
 
     });
 }
-
-
-
-
 function cloaseAlert(){
     $("#shadow-box").css('display', 'none')
 }
+
+
+$('#createTask').on('show.bs.modal', function (event) {
+
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var eventId = button.data('eventid') // Extract info from data-* attributes
+
+    var modal = $(this)
+//    modal.find('.modal-title').text('New message to ' + recipient)
+
+    $.ajax({
+        url: availableParticipantLink,
+        data: {
+            eventId: eventId
+
+        },
+        dataType: 'json',
+
+        success: function(response){
+
+            if(response.code == 100){
+                if(response.participantId != ''){
+                    participantName = response.participantName
+                    participantId = response.participantId
+                    len = response.participantId.length;
+                    for (index = 0;  index < len; ++index) {
+                        modal.find('.available-participant-group').append('<label>'+participantName[index]+'<input type="checkbox" value="'+participantId[index]+'"></label><br/>')
+
+
+                    }
+                }else{
+                    modal.find('.available-participant-group').text('You not have active participant')
+                }
+
+
+            }
+
+        },
+        beforeSend: function(){
+            modal.find('.available-participant-group').empty()
+        },
+        complete: function(){
+
+        }
+
+    });
+
+})

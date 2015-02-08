@@ -48,3 +48,7 @@ main_api_user:
 get_available_user:
     path:     /get-available-user
     defaults: { _controller: MainApiBundle:Participant:getAvailableUser }
+
+get_available_participant:
+    path:     /get-available-participant
+    defaults: { _controller: MainApiBundle:Participant:getAvailableParticipant }
