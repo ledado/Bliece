@@ -22,26 +22,27 @@
 
 {% block content %}
     {% block header %}
+        <div id="header-background"></div>
         <div id="header">
-        <div class="logo-box">
-            logo
+        <div id="logo-box">
+            <img src="{{ asset('bundles/mainapi/images/logo.png') }}" id="header_logo" />
         </div>
-        <div class="search-box">
+        <div id="search-box">
             <form action="">
-                <input type="text" name="search-user" class="search-user-input" placeholder="Search">
+                <input type="text" name="search-user" id="search-user-input" placeholder="Search">
             </form>
         </div>
-        <div class="user-box">
-            <span class="user-name">
+        <div id="user-box">
+            <span id="user-box-name">
                 {{ user }}
             </span>
-            <a href="{{ path('main_api_create_event') }}">Create event</a>
-            <a href="{{ path('logout') }}">Logout</a>
+            <a href="{{ path('main_api_create_event') }}" ><img src="{{ asset('bundles/mainapi/images/new_event.png') }}" id="user-box-create" /></a>
             {% if render(controller('MainApiBundle:Notification:isNewNotification')) == 'true' %}
-                You have new <a href="{{ path('main_api_notifications') }}">notifications</a>
+                 <a href="{{ path('main_api_notifications') }}"><img src="{{ asset('bundles/mainapi/images/notification_new.png') }}" id="user-box-notification" /></a>
             {% else %}
-                You not have new <a href="{{ path('main_api_notifications') }}">notifications</a>
+                <a href="{{ path('main_api_notifications') }}"><img src="{{ asset('bundles/mainapi/images/notification.png') }}" id="user-box-notification"/></a>
             {% endif %}
+            <a href="{{ path('logout') }}"><img src="{{ asset('bundles/mainapi/images/logout.png') }}" id="user-box-logout"/></a>
 
         </div>
         </div>
