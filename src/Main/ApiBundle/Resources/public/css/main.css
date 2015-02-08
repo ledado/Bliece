@@ -6,40 +6,77 @@ body{
     top:0;
     left:0;
 }
-/* vrch dashbordu*/
-#header{
+/* header */
+#header-background{
+    position: absolute;
     width:100%;
     height:50px;
     background-color: #CCCCCC;
 }
-.logo-box{
+#header{
+    position: relative;
+    width: 1024px;
+    height: 50px;
+    margin: auto auto;
+}
+#logo-box{
+    position: absolute;
     width:60px;
     height:50px;
-    margin-left: 20%;
+}
+#logo-box img{
+    margin-top: 5px;
+    width: 30px;
+    height: 40px;
+}
+#search-box{
     position: absolute;
+    width: 450px;
+    height: 50px;
+    top: 10px;
+    left: 50px;
 }
-.search-box{
-    width:40%;
-    height:50px;
-    margin:0 30%;
-    position: absolute;
-}
-.user-box{
-    width:230px;
-    height:50px;
-    float: right;
-    margin-right:10%;
-}
-.search-user-input{
+#search-user-input{
     border-radius:3px;
-
     border:none;
     padding-left:4px;
     height:30px;
-    width:60%;
-
+    width: 100%;
 }
-/* end */
+#user-box{
+    position: absolute;
+    left: 520px;
+}
+#user-box-name{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 50px;
+    width: 250px;
+    font-size: 19px;
+}
+#user-box-create{
+    position: absolute;
+    top: 10px;
+    left: 340px;
+    width: 25px;
+    height: 25px;
+}
+#user-box-notification{
+    position: absolute;
+    top: 10px;
+    left: 380px;
+    width: 25px;
+    height: 25px;
+}
+#user-box-logout{
+    position: absolute;
+    top: 10px;
+    left: 420px;
+    width: 25px;
+    height: 25px;
+}
+/* end header */
 /* main content */
 #content{
     width:70%;
@@ -47,7 +84,7 @@ body{
     margin:0 auto;
 
 }
-/* end */
+/* end main content*/
 
 /* ajax box*/
 #shadow-box{
@@ -72,7 +109,7 @@ body{
      padding:10px 5px 10px 5px;
      border-bottom:1px solid black;
  }
-/* end */
+/* end ajax box*/
 .notification{
     padding:10px 10px 10px 10px;
 }
