@@ -60,4 +60,14 @@ class TaskController extends Controller {
         return new Response(json_encode($response));
 
     }
+
+    public function taskManagerAction(){
+        $user = $this->get('security.context')->getToken()->getUser();
+        $em = $this->get('doctrine')->getManager();
+
+
+        return $this->render('MainApiBundle:Task:task_manager.html.twig', array(
+            'user' => $user,
+        ));
+    }
 } 

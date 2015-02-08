@@ -1,0 +1,26 @@
+{% extends 'MainApiBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var availableUserLink = '{{ path('get_available_user') }}'
+        var availableParticipantLink = '{{ path('get_available_participant') }}'
+        var addParticipantLink = '{{ path('main_api_add_participant') }}'
+        var createTaskLink = '{{ path('main_api_create_task') }}'
+
+        var ajaxLoader = '{{ asset('bundles/mainapi/images/ajax-loader.gif') }}'
+
+    </script>
+
+
+{% endblock %}
+
+{% block content %}
+    {% block header %}{{ parent() }}{% endblock %}
+
+<div id="content">
+
+
+</div>
+
+{% endblock %}
