@@ -161,8 +161,9 @@ $('#createTask').on('show.bs.modal', function (event) {
     var eventId = button.data('eventid') // Extract info from data-* attributes
 
     var modal = $(this)
-//    modal.find('.modal-title').text('New message to ' + recipient)
-
+    $(".create-task-button").remove()
+    $(".create-task-success-message").remove()
+    modal.find('.modal-footer').append('<button class="btn btn-primary create-task-button" data-loading-text="Loading..." data-eventid="'+eventId+'">Save</button>')
     $.ajax({
         url: availableParticipantLink,
         data: {
@@ -179,7 +180,7 @@ $('#createTask').on('show.bs.modal', function (event) {
                     participantId = response.participantId
                     len = response.participantId.length;
                     for (index = 0;  index < len; ++index) {
-                        modal.find('.available-participant-group').append('<label>'+participantName[index]+'<input type="checkbox" value="'+participantId[index]+'"></label><br/>')
+                        modal.find('.available-participant-group').append('<label>'+participantName[index]+'<input class="participant-checkbox" type="checkbox" value="'+participantId[index]+'"></label><br/>')
 
 
                     }
@@ -193,11 +194,54 @@ $('#createTask').on('show.bs.modal', function (event) {
         },
         beforeSend: function(){
             modal.find('.available-participant-group').empty()
+            modal.find('.available-participant-group').append('<div class="ajax-loader"><img src="'+ajaxLoader+'"/></div>')
         },
         complete: function(){
-
+            $('.ajax-loader').remove()
         }
 
     });
+
+})
+$(document).on('click','.create-task-button',function () {
+    var eventId = $(this).data('eventid')
+
+    var values = new Array();
+    $.each($(".participant-checkbox:checked"), function() {
+        values.push($(this).val());
+    });
+
+    var $btn = $(this).button('loading')
+    $(".create-task-success-message").remove()
+    if($("#task-title").val() != ''){
+        $.ajax({
+            url: createTaskLink,
+            data: {
+                eventId: eventId,
+                title: $("#task-title").val(),
+                description:  $("#task-description").val(),
+                participantId: values
+            },
+            dataType: 'json',
+
+            success: function(response){
+
+                if(response.code == 100){
+
+                }
+
+            },
+            beforeSend: function(){
+
+            },
+            complete: function(){
+                $btn.button('reset')
+                $('.modal-body').find('form')[0].reset();
+
+                $('.modal-footer').append('<div class="create-task-success-message">Task was created</div>')
+            }
+
+        });
+    }
 
 })

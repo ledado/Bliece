@@ -6,6 +6,10 @@
         var availableUserLink = '{{ path('get_available_user') }}'
         var availableParticipantLink = '{{ path('get_available_participant') }}'
         var addParticipantLink = '{{ path('main_api_add_participant') }}'
+        var createTaskLink = '{{ path('main_api_create_task') }}'
+
+        var ajaxLoader = '{{ asset('bundles/mainapi/images/ajax-loader.gif') }}'
+
     </script>
 
 
@@ -66,7 +70,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">Create task and put users</h4>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -75,7 +79,7 @@
                             <input type="text" class="form-control" id="task-title">
                         </div>
                         <div class="form-group">
-                            <label for="description" class="description-label">Message:</label>
+                            <label for="description" class="description-label">Description:</label>
                             <textarea class="form-control" id="task-description"></textarea>
                         </div>
                         <div class="form-group">
@@ -84,11 +88,13 @@
 
                             </div>
                         </div>
+
+
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+
                 </div>
             </div>
         </div>

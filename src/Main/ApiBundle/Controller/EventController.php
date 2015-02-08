@@ -67,7 +67,6 @@ class EventController extends Controller {
         $user = $this->get('security.context')->getToken()->getUser();
 
         $em = $this->get('doctrine')->getManager();
-        $userId = $em->getRepository('MainApiBundle:User')->findOneById($user->getId());
         $event = $em->getRepository('MainApiBundle:Event')->findOneByName($eventName);
 
         $verification = false;

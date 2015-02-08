@@ -90,3 +90,6 @@ body{
     background:#E6E6E6;
 }
 
+.create-task-success-message{
+    float:left;
+}
